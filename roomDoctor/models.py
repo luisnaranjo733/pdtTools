@@ -63,11 +63,11 @@ class Room(models.Model):
 
     def avgStrength(self):
         '''Calculates strength by using the avg of all occupant's house points'''
-            occupants = self.getOccupants()
-            if occupants:
-                return occupants.aggregate(Avg('pointsField'))['pointsField__avg']
-            else:
-                return 0
+        occupants = self.getOccupants()
+        if occupants:
+            return occupants.aggregate(Avg('pointsField'))['pointsField__avg']
+        else:
+            return 0
 
     def __unicode__(self):
         return "Room %d" % self.roomNumberField
