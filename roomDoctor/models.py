@@ -26,7 +26,7 @@ evictOccupant()
 class Room(models.Model):
     roomNumberField = models.IntegerField(default=-1)
     isImprovedField = models.BooleanField(default=False)
-    
+
     def getOccupants(self):
         '''Gets this room's current occupants.
         
@@ -43,15 +43,15 @@ class Room(models.Model):
         '''Evicts all occupants of this room (if any)'''
         for occupant in self.getOccupants():
             occupant.setRoom(None)
-			
-	def strength(self):
+
+    def strength(self):
         '''Calculates the overall "strength" of this room.
         
         This is a generalized method.
         Modify to return self.maxStrength() or self.avgStrength()
         depending on desired behaviour.
         '''
-		return self.maxStrength()
+        return self.maxStrength()
 
     def maxStrength(self):
         '''Calculates strength by using the max occupant's house points'''
@@ -62,12 +62,12 @@ class Room(models.Model):
             return 0
 
     def avgStrength(self):
-    '''Calculates strength by using the avg of all occupant's house points'''
-        occupants = self.getOccupants()
-        if occupants:
-            return occupants.aggregate(Avg('pointsField'))['pointsField__avg']
-        else:
-            return 0
+        '''Calculates strength by using the avg of all occupant's house points'''
+            occupants = self.getOccupants()
+            if occupants:
+                return occupants.aggregate(Avg('pointsField'))['pointsField__avg']
+            else:
+                return 0
 
     def __unicode__(self):
         return "Room %d" % self.roomNumberField
@@ -97,10 +97,10 @@ class Chore(models.Model):
         '''Returns all workers that currently have this chore.'''
         return self.person_set.all()
 
-	def workersMissing(self):
-		'''Returns the number of workers needed to make this chore "full"'''
-		nWorkers = len(self.getWorkers())
-		return abs(self.getNumWorkerQuota() - nWorkers)
+    def workersMissing(self):
+        '''Returns the number of workers needed to make this chore "full"'''
+        nWorkers = len(self.getWorkers())
+        return abs(self.getNumWorkerQuota() - nWorkers)
         
     def __unicode__(self):
         return self.getTitle()
@@ -113,9 +113,9 @@ class Chore(models.Model):
     def getDescription(self):
         return self.descriptionField
         
-	def getNumWorkerQuota(self):
-		return self.workerQuotaField
-        
+    def getNumWorkerQuota(self):
+        return self.workerQuotaField
+
     def setTitle(self, title):
         self.titleField = title
         self.save()
@@ -127,7 +127,7 @@ class Chore(models.Model):
     def setWorkerQuota(self, quota):
         self.workerQuotaField = quota
         self.save()
-	
+
 
 class Person(models.Model):
     nameField = models.CharField(max_length=80)
