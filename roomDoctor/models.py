@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Max, Avg
 
 '''
 Room
@@ -23,45 +24,110 @@ evictOccupant()
 '''
 
 class Room(models.Model):
-    roomNumber = models.IntegerField(default=-1)
-    isImproved = models.BooleanField(default=False)
+    roomNumberField = models.IntegerField(default=-1)
+    isImprovedField = models.BooleanField(default=False)
     
     def getOccupants(self):
+        '''Gets this room's current occupants.
+        
+        Returns a QuerySet of Person objects that have ForeignKeys
+        that are mapped to this Room.
+        '''
         return self.person_set.all()
 
     def isOccupied(self):
+        '''Tells whether or not this room currently has any occupants.'''
         return len(self.getOccupants()) > 0
-    
-    def evictOccupant(self, occupant):
-        occupant.room = None
-        occupant.save()
 
     def evictOccupants(self):
+        '''Evicts all occupants of this room (if any)'''
         for occupant in self.getOccupants():
-            self.evictOccupant(occupant)
+            occupant.setRoom(None)
+			
+	def strength(self):
+        '''Calculates the overall "strength" of this room.
+        
+        This is a generalized method.
+        Modify to return self.maxStrength() or self.avgStrength()
+        depending on desired behaviour.
+        '''
+		return self.maxStrength()
 
-    def pointStrength(self):
+    def maxStrength(self):
+        '''Calculates strength by using the max occupant's house points'''
         occupants = self.getOccupants()
         if occupants:
-            occupants.order_by('-points')
-            return occupants[0].points
+            return occupants.aggregate(Max('pointsField'))['pointsField__max']
         else:
             return 0
 
     def avgStrength(self):
+    '''Calculates strength by using the avg of all occupant's house points'''
         occupants = self.getOccupants()
-        total = 0.0
-        for occupant in occupants:
-            total += occupant.points
-        return total / len(occupants)
+        if occupants:
+            return occupants.aggregate(Avg('pointsField'))['pointsField__avg']
+        else:
+            return 0
 
     def __unicode__(self):
-        return "Room %d" % self.roomNumber
+        return "Room %d" % self.roomNumberField
+        
+    # Low level Setter/Getter methods below
+        
+    def getRoomNumber(self):
+        return roomNumberField
+        
+    def setRoomNumber(self, roomNumber):
+        self.roomNumberField = roomNumber
+        self.save()
+        
+    def isImproved(self):
+        return isImprovedField
+        
+    def setIsImproved(self, isImproved):
+        self.isImprovedField = isImproved
+        self.save()
 
 class Chore(models.Model):
     titleField = models.CharField(max_length=80)
     descriptionField = models.TextField()
-    numWorkersPickedField = models.IntegerField(default=0)
+    workerQuotaField = models.IntegerField(default=0) # 2 for foyer
+	
+    def getWorkers(self):
+        '''Returns all workers that currently have this chore.'''
+        return self.person_set.all()
+
+	def workersMissing(self):
+		'''Returns the number of workers needed to make this chore "full"'''
+		nWorkers = len(self.getWorkers())
+		return abs(self.getNumWorkerQuota() - nWorkers)
+        
+    def __unicode__(self):
+        return self.getTitle()
+        
+    # Low level Setter/Getter methods below
+		
+    def getTitle(self):
+        return self.titleField
+        
+    def getDescription(self):
+        return self.descriptionField
+        
+	def getNumWorkerQuota(self):
+		return self.workerQuotaField
+        
+    def setTitle(self, title):
+        self.titleField = title
+        self.save()
+        
+    def setDescription(description):
+        self.descriptionField = description
+        self.save()
+        
+    def setWorkerQuota(self, quota):
+        self.workerQuotaField = quota
+        self.save()
+	
 
 class Person(models.Model):
     nameField = models.CharField(max_length=80)
@@ -88,12 +154,12 @@ class Person(models.Model):
             the max value of the potential roommates is used
         '''
         if len(mates) == 0:
-            mates.add(Self)
+            mates.append(self)
         if room.isOccupied():
             points = [mate.getPoints() for mate in mates]
             strength = sum(points) / len(mates) # Average of room mate points
             strength = max(points) # Highest room mate point value
-            return strength > room.pointStrength()
+            return strength > room.strength()
         else:
             return True
 
@@ -115,7 +181,7 @@ class Person(models.Model):
         if not self.canTakeRoom(room, mates): # precondition
             raise Exception("Not enough points to take this room!")
         if len(mates) == 0:
-            mates.add(self)
+            mates.append(self)
         for mate in mates:
             mate.setRoom(room)
 
@@ -143,7 +209,7 @@ class Person(models.Model):
         self.setChore(chore)
 
     def __unicode__(self):
-        return self.nameField
+        return self.getName()
 
     # Low level Setter/Getter methods below
 
@@ -180,7 +246,7 @@ class Person(models.Model):
         return self.choreField
 
     def getPoints(self):
-        return float(self.pointsField())
+        return float(self.pointsField)
 
 '''
 Person
@@ -193,7 +259,7 @@ occupyRoom(room)
     * Throw exception if !canOccupyRoom(room)
 canOccupyRoom(room)
     * if isLiveIn: Throw exception
-    * return points > room.pointStrength()
+    * return points > room.strength()
 person.room_set.all()
 
 
