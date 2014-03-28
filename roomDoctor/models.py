@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models import Max, Avg
 
 class Room(models.Model):
@@ -132,6 +133,7 @@ class Person(models.Model):
     choreField = models.ForeignKey(Chore, blank=True, null=True)
     pointsField = models.IntegerField(default=0)
     selectedField = models.BooleanField(default=False)
+    user = models.OneToOneField(User)
     
     @staticmethod
     def getSelectionQueue():
