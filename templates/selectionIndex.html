@@ -1,10 +1,32 @@
-{% extends "base.html" %}
+{% extends "bare.html" %}
 
 {% block head %}
+<style>
+ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+li
+{
+display:inline;
+}
+</style>
 {% endblock head %}
 
 {% block body %}
 <h1>Room/Chore Selection Index</h1>
-<a href="/logout">Log out</a>
+
+<ul>
+<li><a href="/logout">Log out</a></li> |
+<li><a href="/startSelection">Start Selection</a></li> |
+<li><a href="/stopSelection">Stop Selection</a></li>
+</ul>
+<hr><br>
+
+{% if SELECTION_OPEN %}
+<p style="color:red">Selection process is open!</p>
+{% endif %}
 
 {% endblock body %}

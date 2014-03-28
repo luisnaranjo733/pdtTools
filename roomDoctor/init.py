@@ -1,9 +1,4 @@
-'''
-This cron job will run once a day, and remind users of their upcoming chaperone
-obligations (4)
-'''
-import os
-import sys
+import os, sys
 from datetime import datetime
 path = os.path.join('/home/luis/Documents', 'pdt')
 sys.path.append(path)

@@ -131,6 +131,17 @@ class Person(models.Model):
     roomField = models.ForeignKey(Room, blank=True, null=True)
     choreField = models.ForeignKey(Chore, blank=True, null=True)
     pointsField = models.IntegerField(default=0)
+    selectedField = models.BooleanField(default=False)
+    
+    @staticmethod
+    def getSelectionQueue():
+        '''Gets the queue of people who have not selected yet
+        
+        Ordered by descending house points'''
+        
+        return Person.objects.filter(isLiveInField=True).order_by('-pointsField').filter(selectedField=False)
+        
+    
 
     def canTakeRoom(self, room, mates=[]):
         ''' Tells if a list of room mates can take a particular room
@@ -211,8 +222,26 @@ class Person(models.Model):
     def __unicode__(self):
         return self.getName()
 
-    # Low level Setter/Getter methods below
+    # Low level Getter/Setter methods below
+    
+    def getName(self):
+        return self.nameField
 
+    def isLiveIn(self):
+        return self.isLiveInField
+
+    def getRoom(self):
+        return self.roomField
+
+    def getChore(self):
+        return self.choreField
+
+    def getPoints(self):
+        return float(self.pointsField)
+        
+    def getSelected(self):
+        return selectedField
+        
     def setName(self, name):
         self.nameField = name
         self.save()
@@ -232,21 +261,10 @@ class Person(models.Model):
     def setPoints(self, points):
         self.pointsField = points
         self.save()
-
-    def getName(self):
-        return self.nameField
-
-    def isLiveIn(self):
-        return self.isLiveInField
-
-    def getRoom(self):
-        return self.roomField
-
-    def getChore(self):
-        return self.choreField
-
-    def getPoints(self):
-        return float(self.pointsField)
+        
+    def setSelected(self, selected):
+        self.selectedField = selected
+        self.save()
 
 '''
 Person
