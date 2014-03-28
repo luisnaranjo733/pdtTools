@@ -2,13 +2,13 @@
 
 {% block head %}
 <style>
-ul
+#navUL
 {
 list-style-type:none;
 margin:0;
 padding:0;
 }
-li
+#navLI
 {
 display:inline;
 }
@@ -18,15 +18,29 @@ display:inline;
 {% block body %}
 <h1>Room/Chore Selection Index</h1>
 
-<ul>
-<li><a href="/logout">Log out</a></li> |
-<li><a href="/startSelection">Start Selection</a></li> |
-<li><a href="/stopSelection">Stop Selection</a></li>
+<ul id="navUL">
+<li id="navLI"><a href="/startSelection">Start Selection</a></li> |
+<li id="navLI"><a href="/stopSelection">Stop Selection</a></li> |
+{% if user.is_superuser %}
+<li id="navLI"><a href="/admin">Admin</a></li> |
+{% endif %}
+<li id="navLI"><a href="/logout">Log out</a></li>
 </ul>
 <hr><br>
 
 {% if SELECTION_OPEN %}
-<p style="color:red">Selection process is open!</p>
+<p style="color:red">Selection process is <span style="font-weight:bold">open</span>!</p>
+<ol>
+{% for person in liveIns %}
+    {% if person.hasSelected %}
+    <li><p>{{ person }}</p></li>
+    {% else %}
+    <li><p style="font-weight:bold">{{ person }}</p></li>
+    {% endif %}
+{% endfor %}
+</ol>
+{% else %}
+<p style="color:red">Selection process is <span style="font-weight:bold">closed</span>!</p>
 {% endif %}
 
 {% endblock body %}

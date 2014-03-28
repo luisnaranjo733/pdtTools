@@ -28,6 +28,25 @@ try:
     person = Person.objects.get(pk=1)
 except:
     print 'Created a person!'
-    person = Person()
-    person.setName("Luis")
+    luis = Person()
+    luis.setName("Luis")
+    luis.setPoints(30)
+    
+try:
+    person = Person.objects.get(pk=2)
+except:
+    print 'Created another person!'
+    stan = Person()
+    stan.setName("Stan")
+    stan.setPoints(50)
+    
+    
+try:
+    person = Person.objects.get(pk=3)
+except:
+    print 'Created another person!'
+    nathan = Person()
+    nathan.setName("Nathan")
+    nathan.setPoints(40)
+    
     

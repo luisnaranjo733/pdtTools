@@ -139,9 +139,22 @@ class Person(models.Model):
         
         Ordered by descending house points'''
         
-        return Person.objects.filter(isLiveInField=True).order_by('-pointsField').filter(selectedField=False)
+        return Person.getLiveIns().filter(selectedField=False)
         
-    
+    @staticmethod
+    def getLiveIns():
+        '''Gets all live-ins
+        
+        Ordered by descending house points'''
+        
+        return Person.objects.filter(isLiveInField=True).order_by('-pointsField')
+        
+    def isSelecting(self):
+        queue = self.getSelectionQueue()
+        if queue:
+            return queue.first() == self
+        else:
+            return False
 
     def canTakeRoom(self, room, mates=[]):
         ''' Tells if a list of room mates can take a particular room
@@ -220,7 +233,10 @@ class Person(models.Model):
         self.setChore(chore)
 
     def __unicode__(self):
-        return self.getName()
+        name = self.getName()
+        if self.isSelecting():
+            name += ' (waiting on this person to select)'
+        return name
 
     # Low level Getter/Setter methods below
     
@@ -239,8 +255,8 @@ class Person(models.Model):
     def getPoints(self):
         return float(self.pointsField)
         
-    def getSelected(self):
-        return selectedField
+    def hasSelected(self):
+        return self.selectedField
         
     def setName(self, name):
         self.nameField = name
