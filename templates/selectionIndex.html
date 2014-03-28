@@ -30,6 +30,10 @@ display:inline;
 
 {% if SELECTION_OPEN %}
 <p style="color:red">Selection process is <span style="font-weight:bold">open</span>!</p>
+{% if user.isSelecting %}
+YOU FUCK YOU'RE HOLDING UP THE LINE
+{% endif %}
+
 <ol>
 {% for person in liveIns %}
     {% if person.hasSelected %}
