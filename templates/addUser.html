@@ -12,12 +12,35 @@
   background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
+#navUL
+{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+#navLI
+{
+display:inline;
+}
+.right
+{
+float:right
+}
+.left
+{
+float:left
+}
 </style>
 {% endblock %}
 
 {% block body %}
 <h1>Sign up for room selection</h1>
-<hr><br>
+<div class="left">
+    <ul id="navUL">
+        <li id="navLI"><a href="/">Back to Room/Chore Selection</a></li>
+    </ul>
+</div>
+<br><hr><br>
 
 <div class="container">
     <div class="row">

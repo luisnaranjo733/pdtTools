@@ -36,7 +36,7 @@ def addUser(request):
     if request.method == 'GET':
         return render(request, 'addUser.html')
     else:
-        return signUp(request)
+        return signUp(request)  
     
 def signUp(request):
     email = request.POST.get('email')

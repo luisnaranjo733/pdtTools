@@ -14,6 +14,7 @@ urlpatterns += patterns('roomDoctor.views',
     url(r'^$', 'index'),
     url(r'^startSelection/$', 'startSelection'),
     url(r'^stopSelection/$', 'stopSelection'),
+    url(r'^select/$', 'select'),
 )
 
 urlpatterns += patterns('',
