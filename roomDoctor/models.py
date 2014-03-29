@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Max, Avg
 
+from custom_user.models import AbstractEmailUser
+
 class Room(models.Model):
     roomNumberField = models.IntegerField(default=-1)
     isImprovedField = models.BooleanField(default=False)
@@ -126,14 +128,13 @@ class Chore(models.Model):
         self.save()
 
 
-class Person(models.Model):
+class Person(AbstractEmailUser):
     nameField = models.CharField(max_length=80)
     isLiveInField = models.BooleanField(default=True)
     roomField = models.ForeignKey(Room, blank=True, null=True)
     choreField = models.ForeignKey(Chore, blank=True, null=True)
     pointsField = models.IntegerField(default=0)
     selectedField = models.BooleanField(default=False)
-    user = models.OneToOneField(User)
     
     @staticmethod
     def getSelectionQueue():

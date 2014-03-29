@@ -25,27 +25,27 @@ except:
     chore.setWorkerQuota(2)
     
 try:
-    person = Person.objects.get(pk=1)
+    person = Person.objects.get(email="luisnaranjo733@gmail.com")
 except:
     print 'Created a person!'
-    luis = Person()
+    luis = Person.objects.create_user("luisnaranjo733@gmail.com", password='test')
     luis.setName("Luis")
     luis.setPoints(30)
     
 try:
-    person = Person.objects.get(pk=2)
+    person = Person.objects.get(email="stan@gmail.com")
 except:
     print 'Created another person!'
-    stan = Person()
+    stan = Person.objects.create_user("stan@gmail.com", password='test')
     stan.setName("Stan")
     stan.setPoints(50)
     
     
 try:
-    person = Person.objects.get(pk=3)
+    person = Person.objects.get(email="nathan@gmail.com")
 except:
     print 'Created another person!'
-    nathan = Person()
+    nathan = Person.objects.create_user("nathan@gmail.com", password='test')
     nathan.setName("Nathan")
     nathan.setPoints(40)
     

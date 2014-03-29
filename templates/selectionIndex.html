@@ -12,21 +12,40 @@ padding:0;
 {
 display:inline;
 }
+.right
+{
+float:right
+}
+.left
+{
+float:left
+}
 </style>
 {% endblock head %}
 
 {% block body %}
 <h1>Room/Chore Selection Index</h1>
 
-<ul id="navUL">
-<li id="navLI"><a href="/startSelection">Start Selection</a></li> |
-<li id="navLI"><a href="/stopSelection">Stop Selection</a></li> |
-{% if user.is_superuser %}
-<li id="navLI"><a href="/admin">Admin</a></li> |
-{% endif %}
-<li id="navLI"><a href="/logout">Log out</a></li>
-</ul>
-<hr><br>
+<div class="left">
+    <ul id="navUL">
+        <li id="navLI"><a href="/startSelection">Start Selection</a></li> |
+        <li id="navLI"><a href="/stopSelection">Stop Selection</a></li> |
+        {% if user.is_staff %}
+        <li id="navLI"><a href="/admin">Admin</a></li> |
+        {% endif %}
+        <li id="navLI"><a href="/logout">Log out</a></li>
+    </ul>
+</div>
+
+<div class="right">
+    <ul id="navUL">
+        {% if user.is_superuser %}
+        <li id="navLI"><a href="/addUser">Add User</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<br><hr><br>
 
 {% if SELECTION_OPEN %}
 <p style="color:red">Selection process is <span style="font-weight:bold">open</span>!</p>

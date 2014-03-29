@@ -26,3 +26,6 @@ def logIn(request):
 def logOut(request):
     logout(request)
     return redirect('/')
+    
+def addUser(request):
+    return HttpResponse('add user')

@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('core.views',
     url(r'^login/$', 'logIn'),
     url(r'^logout/$', 'logOut'),
+    url(r'^addUser/$', 'addUser'),
 )
 
 urlpatterns += patterns('roomDoctor.views',

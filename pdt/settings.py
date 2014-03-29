@@ -16,6 +16,8 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
 
+AUTH_USER_MODEL = 'roomDoctor.Person'
+
 LOGIN_URL = "/login" # Default "/accounts/login"
 
 # Quick-start development settings - unsuitable for production
@@ -41,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'custom_user',
     
     'core',
     'roomDoctor',
