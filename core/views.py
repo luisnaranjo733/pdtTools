@@ -28,4 +28,4 @@ def logOut(request):
     return redirect('/')
     
 def addUser(request):
-    return HttpResponse('add user')
+    return render(request, 'addUser.html')
