@@ -8,18 +8,18 @@ from roomDoctor.models import Person
 
 import state
 
-@login_required
 def index(request):
     params = {'SELECTION_OPEN': state.selectionStatus()}
     if params['SELECTION_OPEN']:
         params['liveIns'] = Person.getLiveIns()
     return render(request, 'selectionIndex.html', params)
 
-@login_required
+# check permissions
 def startSelection(request):
     state.startSelection()
     return redirect(index)
-    
+ 
+@login_required 
 def stopSelection(request):
     state.stopSelection()
     return redirect(index)
