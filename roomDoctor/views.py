@@ -8,6 +8,7 @@ from roomDoctor.models import Person
 
 import state
 
+@login_required
 def index(request):
     params = {'SELECTION_OPEN': state.selectionStatus()}
     if params['SELECTION_OPEN']:

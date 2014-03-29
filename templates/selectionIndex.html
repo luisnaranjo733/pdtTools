@@ -28,13 +28,13 @@ float:left
 
 <div class="left">
     <ul id="navUL">
-        <li id="navLI"><a href="/admin">Admin</a></li>
+        <li id="navLI"><a href="/admin">Admin</a></li> |
         {% if user.is_staff %}
-         | <li id="navLI"><a href="/startSelection">Start Selection</a></li> |
+        <li id="navLI"><a href="/startSelection">Start Selection</a></li> |
         <li id="navLI"><a href="/stopSelection">Stop Selection</a></li> |
         {% endif %}
         {% if user.is_authenticated %}
-        <li id="navLI"><a href="/logout">Log out</a></li>
+        <li id="navLI"><a href="/logout">Log out ({{ user.nameField }})</a></li>
         {% endif %}
     </ul>
 </div>
