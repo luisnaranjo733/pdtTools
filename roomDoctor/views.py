@@ -16,7 +16,7 @@ def index(request):
         for person in params['liveIns']:
             if person == request.user and person.isSelecting():
                 return redirect(select)
-    return render(request, 'selectionIndex.html', params)
+    return render(request, 'roomDoctor/selectionIndex.html', params)
 
 # check permissions
 def startSelection(request):
@@ -37,7 +37,7 @@ def select(request):
             if person != request.user:
                 people.append(person)
         params = {'roomMates': people}
-        return render(request, 'select.html', params)
+        return render(request, 'roomDoctor/select.html', params)
     else:
         roomMates = request.POST.getlist('roomMates')
         return HttpResponse(roomMates)

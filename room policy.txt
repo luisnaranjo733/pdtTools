@@ -1,0 +1,25 @@
+Each room
+---------
+* Has an ID number
+* Has a capacity
+* The above traits will be evaluated a week before the room selection process begins.
+  - Whoever is in charge of room selection will evaluate how many people can live in
+    each room.
+    
+  - If a particular member wants to turn an unused room into a room, they will need to
+    have that FORMALLY cleared by exec (have to go to an exec meeting for discussion)
+    before this evaluation process begins. The room may or may not be reserved for the
+    renovator before the room selection process begins.
+    
+  - If a group of members wants to take a room or group of rooms as a "mini porch"
+    (more than 3 people sleeping in one room), they will need to have that cleared
+    INFORMALLY (facebook is cool) by exec before this evaluations process begins.
+    The room may or may not be reserved for the renovator before the room selection
+    process begins.
+    
+  - Most rooms will be avai 
+    
+  - All members will be informed of the resulting available rooms.
+  
+  This means that at the start of the room selection process, there will be a discrete
+  and agreed upon number of available rooms, and each one will have a set capacity.

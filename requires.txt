@@ -1,2 +1,0 @@
-Django==1.6.2
-django-custom-user==0.4
