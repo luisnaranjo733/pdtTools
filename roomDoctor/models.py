@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Max, Avg
+from django.db.models import Max, Avg, Sum
 
 from custom_user.models import AbstractEmailUser
 
@@ -39,25 +39,34 @@ class Room(models.Model):
         depending on desired behaviour.
         '''
         
-        return self.maxStrength()
+        return self.sumStrength()
 
     def maxStrength(self):
-        '''Calculates strength by using the max occupant's house points'''
+        '''Calculates strength by using the MAX occupant's house points'''
         
         occupants = self.getOccupants()
         if occupants:
             return occupants.aggregate(Max('pointsField'))['pointsField__max']
         else:
-            return 0
+            return -1
 
     def avgStrength(self):
-        '''Calculates strength by using the avg of all occupant's house points'''
+        '''Calculates strength by using the AVG of all occupant's house points'''
         
         occupants = self.getOccupants()
         if occupants:
             return occupants.aggregate(Avg('pointsField'))['pointsField__avg']
         else:
-            return 0
+            return -1
+            
+    def sumStrength(self):
+        '''Calculates strength by using the SUM of all occupant's house points'''
+        
+        occupants = self.getOccupants()
+        if occupants:
+            return occupants.aggregate(Sum('pointsField'))['pointsField__sum']
+        else:
+            return -1
 
     def __unicode__(self):
         return "Room %d" % self.roomNumberField
