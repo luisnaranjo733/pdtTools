@@ -26,11 +26,14 @@ def login():
         user = User.query.filter(User.email == email).first()
         if user:
             if user.check_password(password):
-                flash("Succesful authentication", 'success')
+                flash("Succesful authentication")
                 session['logged_in'] = user.name
                 return redirect(url_for('cover_home'))
+            else:
+                error = 'Invalid username/password'
         else:
             error = 'Invalid username/password'
+        flash(error)
     params = {
         'error': error,
         'email': email,
