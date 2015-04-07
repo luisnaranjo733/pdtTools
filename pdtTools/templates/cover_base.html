@@ -38,8 +38,14 @@
               <h3 class="masthead-brand">Cover</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  {% block active_tab %}
-                  {% endblock active_tab %}
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/features">Features</a></li>
+                  <li class="active"><a href="/contact">Contact</a></li>
+                  {% if not session.logged_in %}
+                  <li><a href="{{ url_for('login') }}">log in</a></li>
+                  {% else %}
+                  <li><a href="{{ url_for('logout') }}">log out</a></li>
+                  {% endif %}
                 </ul>
               </nav>
             </div>

@@ -1,11 +1,6 @@
 {% extends "cover_base.html" %}
 
-                  {% block active_tab %}
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/features">Features</a></li>
-                  <li class="active"><a href="/contact">Contact</a></li>
-                  {% endblock active_tab %}
-
 {% block body %}
             <h1>Contact.</h1>
+            <h2> {{ session.logged_in }} </h2>
 {% endblock body %}

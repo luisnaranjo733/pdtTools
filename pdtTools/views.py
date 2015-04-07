@@ -26,10 +26,13 @@ def login():
         if user:
             if user.check_password(password):
                 flash("Succesful authentication")
-                session['user'] = user.name
+                session['logged_in'] = user.name
                 return redirect(url_for('cover_home'))
         else:
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
     
-
+@app.route('/logout')
+def logout():
+    session['logged_in'] = ''
+    return redirect(url_for('cover_home'))
