@@ -1,10 +1,11 @@
 from flask import render_template, request, flash
-from flask import redirect, url_for
+from flask import redirect, url_for, session
 from pdtTools import app
 from pdtTools.models import User
 
 @app.route('/')
 def cover_home():
+    #return render_template('base.html')
     return render_template('cover_home.html')
     
 @app.route('/features')
@@ -25,6 +26,7 @@ def login():
         if user:
             if user.check_password(password):
                 flash("Succesful authentication")
+                session['user'] = user.name
                 return redirect(url_for('cover_home'))
         else:
             error = 'Invalid username/password'
