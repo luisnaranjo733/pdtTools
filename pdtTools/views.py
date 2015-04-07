@@ -18,27 +18,23 @@ def cover_contact():
     
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    error = None
-    email = ''
+    params = {'login_active': 'active'}
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        
+        if email:
+            params['email'] = email
+        
         user = User.query.filter(User.email == email).first()
-        if user:
+        if user: # if email exists in database
             if user.check_password(password):
                 flash("Succesful authentication")
                 session['logged_in'] = user.name
                 return redirect(url_for('cover_home'))
-            else:
-                error = 'Invalid username/password'
-        else:
-            error = 'Invalid username/password'
-        flash(error)
-    params = {
-        'error': error,
-        'email': email,
-        'login_active': 'active'
-    }
+                
+        flash('Invalid username/password')  # this will only happen if auth failed
+
     return render_template('login.html', **params)
     
 @app.route('/logout')
