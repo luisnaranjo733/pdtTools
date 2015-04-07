@@ -5,15 +5,15 @@ from pdtTools.models import User
 
 @app.route('/')
 def cover_home():
-    return render_template('cover/home.html')
+    return render_template('cover_home.html')
     
 @app.route('/features')
 def cover_features():
-    return render_template('cover/features.html')
+    return render_template('cover_features.html')
     
 @app.route('/contact')
 def cover_contact():
-    return render_template('cover/contact.html')
+    return render_template('cover_contact.html')
     
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -30,6 +30,4 @@ def login():
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
     
-@app.route('/cover')
-def cover():
-    return render_template('cover.html')
+
