@@ -46,9 +46,9 @@
                   <li class="{{ features_active }}"><a href="/features">Features</a></li>
                   <li class="{{ contact_active }}"><a href="/contact">Contact</a></li>
                   {% if not session.logged_in %}
-                  <li><a href="{{ url_for('login') }}">log in</a></li>
+                  <li class="{{ login_active }}"><a href="{{ url_for('login') }}">log in</a></li>
                   {% else %}
-                  <li><a href="{{ url_for('logout') }}">log out</a></li>
+                  <li class="{{ login_active }}"><a href="{{ url_for('logout') }}">log out</a></li>
                   {% endif %}
                 </ul>
               </nav>

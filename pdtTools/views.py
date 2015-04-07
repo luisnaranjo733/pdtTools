@@ -19,6 +19,7 @@ def cover_contact():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     error = None
+    email = ''
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -30,7 +31,12 @@ def login():
                 return redirect(url_for('cover_home'))
         else:
             error = 'Invalid username/password'
-    return render_template('login.html', error=error)
+    params = {
+        'error': error,
+        'email': email,
+        'login_active': 'active'
+    }
+    return render_template('login.html', **params)
     
 @app.route('/logout')
 def logout():
