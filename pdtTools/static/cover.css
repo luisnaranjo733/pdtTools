@@ -2,6 +2,15 @@
  * Globals
  */
 
+/* Twitter Bootstrap */
+
+.alert-success {
+  color: #468847;
+  background-color: #FFFFFF;
+  border-color: #d6e9c6;
+}
+
+
 /* Links */
 a,
 a:focus,
