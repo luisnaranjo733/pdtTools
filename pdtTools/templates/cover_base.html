@@ -40,9 +40,9 @@
               <h3 class="masthead-brand">Cover</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/features">Features</a></li>
-                  <li class="active"><a href="/contact">Contact</a></li>
+                  <li class="{{ home_active }}"><a href="/">Home</a></li>
+                  <li class="{{ features_active }}"><a href="/features">Features</a></li>
+                  <li class="{{ contact_active }}"><a href="/contact">Contact</a></li>
                   {% if not session.logged_in %}
                   <li><a href="{{ url_for('login') }}">log in</a></li>
                   {% else %}
@@ -54,16 +54,7 @@
           </div>
 
           <div class="inner cover">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
+
 
             {% block body %}
             {% endblock body %}

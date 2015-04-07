@@ -6,15 +6,15 @@ from pdtTools.models import User
 @app.route('/')
 def cover_home():
     #return render_template('base.html')
-    return render_template('cover_home.html')
+    return render_template('cover_home.html', home_active='active')
     
 @app.route('/features')
 def cover_features():
-    return render_template('cover_features.html')
+    return render_template('cover_features.html', features_active='active')
     
 @app.route('/contact')
 def cover_contact():
-    return render_template('cover_contact.html')
+    return render_template('cover_contact.html', contact_active='active')
     
 @app.route('/login', methods=['POST', 'GET'])
 def login():
