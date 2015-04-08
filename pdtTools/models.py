@@ -1,7 +1,9 @@
-from sqlalchemy import Column
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.types import Integer, String, Float, Boolean
+from sqlalchemy.orm import relationship, backref
 from werkzeug import generate_password_hash, check_password_hash
 from pdtTools.database import Base
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -9,15 +11,22 @@ class User(Base):
     name = Column(String(50))
     email = Column(String(120), unique=True)
     password_hash = Column(String(54))
-    bond_number = Column(String(4), unique=True)
+    bond_number = Column(Integer, unique=True)
     house_points = Column(Float)
     is_live_in = Column(Boolean)
-    #room = Column(Room)
+    is_admin = Column(Boolean)
+    room_id = Column(Integer, ForeignKey('rooms.number'))
     #chore = Column(Chore)
 
-    def __init__(self, email=None, password=None):
-        self.email = email
-        self.setPassword(password)
+    room = relationship("Room", backref=backref('users', order_by=id))
+
+    def __init__(self, **kwargs):
+        self.is_admin = False  # can be overridden in kwargs
+        for attr in kwargs:
+            if attr == 'password_hash':
+                self.setPassword(kwargs[attr])  # store password as a hash
+            else:
+                setattr(self, attr, kwargs[attr])  # normal attributes
 
     def __repr__(self):
         return '<User %r>' % (self.name)
@@ -93,5 +102,15 @@ class User(Base):
         pass
 
 
+class Room(Base):
+    __tablename__ = 'rooms'
+    number = Column(Integer, primary_key=True)
 
+    def __init__(self, number):
+        self.number = number
+
+    def __repr__(self):
+        return '<Room %r>' % (self.number)
+
+    
 
