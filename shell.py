@@ -17,7 +17,7 @@ def delete_all():
     #chore = Column(Chore)
 '''
 
-rooms = [Room(102), Room(212), Room(306), Room(002)]
+rooms = [Room(102), Room(212), Room(306), Room(307), Room(002)]
 if len(Room.query.all()) < 1:
     for room in rooms:
         db_session.add(room)
@@ -26,23 +26,23 @@ if len(Room.query.all()) < 1:
 
 test_user_dicts = [
     {
-        'email': 'luis@gmail.com', 'password_hash': 'test', 'name': 'Luis', 'is_admin': True,
+        'email': 'luis@gmail.com', 'password_hash': 'test', 'name': 'Luis', 'is_admin': True, 'room_id': 306
     },
 
     {
-        'email': 'michael@gmail.com', 'password_hash': 'test', 'name': 'Michael'
+        'email': 'michael@gmail.com', 'password_hash': 'test', 'name': 'Michael', 'room_id': 306
     },
 
     {
-        'email': 'dan@gmail.com', 'password_hash': 'test', 'name': 'Dan'
+        'email': 'dan@gmail.com', 'password_hash': 'test', 'name': 'Dan', 'room_id': 307
     },
 
     {
-        'email': 'bo@gmail.com', 'password_hash': 'test', 'name': 'Bo'
+        'email': 'bo@gmail.com', 'password_hash': 'test', 'name': 'Bo', 'room_id': 307
     },
 
     {
-        'email': 'frank@gmail.com', 'password_hash': 'test', 'name': 'Frank'
+        'email': 'frank@gmail.com', 'password_hash': 'test', 'name': 'Frank', 'room_id': 102
     },
 ]
 
@@ -60,9 +60,6 @@ if len(User.query.all()) < 2:
     db_session.commit()
 
 
-def getUser(): return User.query.filter(User.name == 'Luis').first()
-def getRoom(): return Room.query.filter(Room.number == 102).first()
-
-user = getUser()
-room = getRoom()
+user = User.query.filter(User.name == 'Luis').first()
+room = Room.query.filter(Room.number == 306).first()
 

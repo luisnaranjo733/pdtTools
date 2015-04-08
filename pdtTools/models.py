@@ -2,7 +2,7 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.types import Integer, String, Float, Boolean
 from sqlalchemy.orm import relationship, backref
 from werkzeug import generate_password_hash, check_password_hash
-from pdtTools.database import Base
+from pdtTools.database import Base, db_session
 
 
 class User(Base):
@@ -105,12 +105,35 @@ class User(Base):
 class Room(Base):
     __tablename__ = 'rooms'
     number = Column(Integer, primary_key=True)
+    # users is a field (list)
 
     def __init__(self, number):
         self.number = number
 
     def __repr__(self):
-        return '<Room %r>' % (self.number)
+        # Room 2   --> '<Room 002>'
+        # Room 311 --> '<Room 311>'
+        return '<Room %r>' % (str(self.number).zfill(3))
+
+    def getOccupants(self):
+        'Return a list of users currently occupying this room.'
+        return self.users
+
+    def isOccupied(self):
+        'Tells is the room is currently occupied'
+        return len(self.users) > 0
+
+    def evictOccupant(self, occupant):
+        '''Evict an occupant from a room.
+
+        Requires a User object. Returns True for success.'''
+        try:
+            self.users.remove(occupant)
+        except ValueError:
+            return False
+        db_session.commit()
+        return True
+        
 
     
 
