@@ -28,7 +28,7 @@ def login():
         
         user = User.query.filter(User.email == email).first()
         if user: # if email exists in database
-            if user.check_password(password):
+            if user.checkPassword(password):
                 flash("Succesful authentication")
                 session['logged_in'] = user.name
                 return redirect(url_for('cover_home'))
