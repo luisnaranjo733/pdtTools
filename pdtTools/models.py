@@ -15,6 +15,7 @@ class User(Base):
     house_points = Column(Float)
     is_live_in = Column(Boolean)
     is_admin = Column(Boolean)
+    has_selected = Column(Boolean)
     room_id = Column(Integer, ForeignKey('rooms.number'))
     #chore = Column(Chore)
 
@@ -66,7 +67,8 @@ class User(Base):
             If there is more than one person trying to take a room,
             the sum housepoint value of the potential roommates is used.
         '''
-        pass
+        if self.is_live_in:
+            pass
 
     def takeRoom(self, room, mates=[]):
         ''' Takes a room for a list of room mates
@@ -80,9 +82,12 @@ class User(Base):
             Pre-condition: canTakeRoom(room, mates) must be True
                            raises Exception if not
         '''
-        # Allows us to treat this process only as a list of mates, even if single.
-        if len(mates) == 0:
-            mates.append(self)
+
+        if self.is_live_in:
+            pass
+            # Allows us to treat this process only as a list of mates, even if single.
+            if len(mates) == 0:
+                mates.append(self)
 
     def canClaimChore(self, chore):
         ''' Tells if Person can claim a particular chore
@@ -90,7 +95,8 @@ class User(Base):
             chore -- The desired chore (Chore object)
             If the chore isn't full yet, return True
         '''
-        pass
+        if self.is_live_in:
+            pass
 
     def claimChore(self, chore):
         ''' Takes a chore
@@ -99,7 +105,8 @@ class User(Base):
             Pre-condition: canTakeChore(chore) must be True
                            raises Exception if not
         '''
-        pass
+        if self.is_live_in:
+            pass
 
 
 class Room(Base):

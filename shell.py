@@ -26,23 +26,28 @@ if len(Room.query.all()) < 1:
 
 test_user_dicts = [
     {
-        'email': 'luis@gmail.com', 'password_hash': 'test', 'name': 'Luis', 'is_admin': True, 'room_id': 306
+        'email': 'luis@gmail.com', 'password_hash': 'test', 'name': 'Luis',
+        'is_admin': True, 'room_id': 306, 'is_live_in': True
     },
 
     {
-        'email': 'michael@gmail.com', 'password_hash': 'test', 'name': 'Michael', 'room_id': 306
+        'email': 'michael@gmail.com', 'password_hash': 'test', 'name': 'Michael', 'room_id': 306,
+         'is_live_in': True
     },
 
     {
-        'email': 'dan@gmail.com', 'password_hash': 'test', 'name': 'Dan', 'room_id': 307
+        'email': 'dan@gmail.com', 'password_hash': 'test', 'name': 'Dan', 'room_id': 307,
+         'is_live_in': True
     },
 
     {
-        'email': 'bo@gmail.com', 'password_hash': 'test', 'name': 'Bo', 'room_id': 307
+        'email': 'bo@gmail.com', 'password_hash': 'test', 'name': 'Bo', 'room_id': 307,
+         'is_live_in': True
     },
 
     {
-        'email': 'frank@gmail.com', 'password_hash': 'test', 'name': 'Frank', 'room_id': 102
+        'email': 'frank@gmail.com', 'password_hash': 'test', 'name': 'Frank', 'room_id': 102,
+         'is_live_in': True
     },
 ]
 
