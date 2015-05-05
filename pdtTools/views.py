@@ -5,8 +5,7 @@ from pdtTools.models import User
 
 @app.route('/')
 def cover_home():
-    #return render_template('base.html')
-    return render_template('cover_home.html', home_active='active')
+    return render_template('home.html')
     
 @app.route('/features')
 def cover_features():

@@ -10,17 +10,17 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Room Doctor</title>
+    <title>PDT Tools</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='starter-template.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='navbar-fixed-top.css') }}" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="{{ url_for('static', filename='ie-emulation-modes-warning.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -31,7 +31,8 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -40,32 +41,31 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Room Doctor</a>
+          <a class="navbar-brand" href="#">PDT Tools</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>    
-            <li><a href="#contact">Contact</a></li>  
-                {% if not session.logged_in %}
-            <li><a href="{{ url_for('login') }}">log in</a></li>
-                {% else %}
-            <li><a href="{{ url_for('logout') }}">log out</a></li>
-                {% endif %}
+            <li><a href="#about">Kitchen Duty</a></li>
+            <li><a href="#contact">Late Plate Bot</a></li>
+            <li><a href="#contact">Room Selection Tool</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+
+        {% if not session.logged_in %}
+            <li><a href="{{ url_for('login') }}">Log in</a></li>
+        {% else %}
+            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+        {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div><!-- /.container -->
+      {% block body %}
+      {% endblock body %}
+    </div> <!-- /container -->
 
 
     <!-- Bootstrap core JavaScript
@@ -74,7 +74,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{{ url_for('static', filename='ie10-viewport-bug-workaround.js') }}"></script>
   </body>
 </html>
 
