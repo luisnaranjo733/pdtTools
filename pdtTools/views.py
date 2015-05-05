@@ -4,16 +4,12 @@ from pdtTools import app
 from pdtTools.models import User
 
 @app.route('/')
-def cover_home():
+def home():
     return render_template('home.html')
     
-@app.route('/features')
-def cover_features():
-    return render_template('cover_features.html', features_active='active')
-    
-@app.route('/contact')
-def cover_contact():
-    return render_template('cover_contact.html', contact_active='active')
+@app.route('/kitchen_duty')
+def kitchenDuty():
+    return render_template('kitchen_duty.html', contact_active='active')
     
 @app.route('/login', methods=['POST', 'GET'])
 def login():
