@@ -1,5 +1,6 @@
 import json
 
+import phonenumbers as pn
 from sqlalchemy import Column
 from sqlalchemy.types import Integer, String, Boolean, Date, TypeDecorator
 from werkzeug import generate_password_hash, check_password_hash
@@ -7,12 +8,21 @@ from werkzeug import generate_password_hash, check_password_hash
 from pdtTools.database import Base
 
 
+class PhoneNumber(TypeDecorator):
+
+    impl = String
+
+    def process_bind_param(self, value, dialect):
+        number = pn.parse(value, 'US')
+        return pn.format_number(number, pn.PhoneNumberFormat.NATIONAL)
+
+
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
     email = Column(String(120), unique=True)
-    phone = Column(String(11))
+    phone = Column(PhoneNumber(11))
 
     password_hash = Column(String(54))
     is_admin = Column(Boolean)
