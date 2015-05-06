@@ -1,9 +1,8 @@
-import json
-
-import phonenumbers as pn
 from sqlalchemy import Column
 from sqlalchemy.types import Integer, String, Boolean, Date, TypeDecorator
 from werkzeug import generate_password_hash, check_password_hash
+import phonenumbers as pn
+from sqlalchemy_utils import JSONType
 
 from pdtTools.database import Base
 
@@ -50,22 +49,16 @@ class User(Base):
         return check_password_hash(self.password_hash, password)
         
 
-class Json(TypeDecorator):
-
-    impl = String
-
-    def process_bind_param(self, value, dialect):
-        return json.dumps(value)
-
-    def process_result_value(self, value, dialect):
-        return json.loads(value)
 
 
 class Job(Base):
     __tablename__ = 'jobs'
     id = Column(Integer, primary_key=True)
     date = Column(Date)
-    workers = Column(Json(128))
+    workers = Column(JSONType)
+
+    def __repr__(self):
+        return '<Job %r>' % self.date
 
     def getWorkers(self):
         if self.workers:
@@ -79,8 +72,9 @@ class Job(Base):
 
     def addWorker(self, worker):
         if not self.workers:
-            self.workers = []
-        self.workers.append(worker.id)
+            self.workers = [worker.id,]
+        else:
+            self.workers.append(worker.id)
 
 
 
