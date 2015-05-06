@@ -1,4 +1,5 @@
 import flask
+import phonenumbers as pn
 
 from pdtTools import app
 from pdtTools.models import User, Job
@@ -14,9 +15,11 @@ def kitchenDuty():
 @app.route('/kitchen_bot', methods=['POST'])
 def kitchenBot():
     phone = flask.request.form['phone']
+    phone = pn.parse(phone, 'US')
     message = flask.request.form['message']
-    #for worker in User.query.all():
-        #if worker.phone = 
+    for worker in User.query.all():
+        if worker.phone == phone:
+            return worker.name
     return 'thanks'
     
 @app.route('/login', methods=['POST', 'GET'])

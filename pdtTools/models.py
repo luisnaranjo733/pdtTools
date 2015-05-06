@@ -16,6 +16,9 @@ class PhoneNumber(TypeDecorator):
         number = pn.parse(value, 'US')
         return pn.format_number(number, pn.PhoneNumberFormat.NATIONAL)
 
+    def process_result_value(self, value, dialect):
+        return pn.parse(value, 'US')
+
 
 class User(Base):
     __tablename__ = 'users'
