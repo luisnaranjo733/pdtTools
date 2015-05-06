@@ -1,6 +1,7 @@
+from datetime import date
+
 import flask
 import phonenumbers as pn
-
 from pdtTools import app
 from pdtTools.models import User, Job
 
@@ -12,14 +13,29 @@ def home():
 def kitchenDuty():
     return flask.render_template('kitchen_duty.html', contact_active='active')
 
+def message_coworkers(coworkers, worker):
+    print repr(coworkers)
+    for coworker in coworkers:
+        if coworker == worker:
+            continue
+        print coworker.id
+
 @app.route('/kitchen_bot', methods=['POST'])
 def kitchenBot():
     phone = flask.request.form['phone']
-    phone = pn.parse(phone, 'US')
+    phone = pn.parse(phone, 'US')  # NEED ERROR HANDLING - SMS RESPONSE
     message = flask.request.form['message']
-    for worker in User.query.all():
-        if worker.phone == phone:
-            return worker.name
+
+    # today's job if it exists
+    today = Job.query.filter(Job.date == date.today()).first()
+    if today:
+        todays_workers = today.getWorkers()
+        for worker in User.query.all():
+            if worker.phone == phone and worker in todays_workers:
+                message_coworkers(todays_workers, worker)
+                return worker.name
+    else:
+        return 'No kitchen duty today!'
     return 'thanks'
     
 @app.route('/login', methods=['POST', 'GET'])

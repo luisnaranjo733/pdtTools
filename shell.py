@@ -5,23 +5,41 @@ from pdtTools.models import User, Job
 
 init_db()
 
-user = User.query.filter(User.id == 1).first()
-
-if not user:
-    user = User()
-    user.name = 'Luis'
-    user.email = 'luisnaranjo733@gmail.com'
-    user.phone = '206-478-4652'
-    user.setPassword('test')
-    db_session.add(user)
-    db_session.commit()
-
 job = Job.query.filter(Job.id == 1).first()
 
 if not job:
     job = Job()
-    job.addWorker(user)
-    job.date = date(2015, 5, 15)
+    job.date = date.today()
     db_session.add(job)
     db_session.commit()
+
+users_data = [
+    {
+        'name': 'Luis',
+        'phone': '206 478 4652',
+    },
+
+    {
+        'name': 'Tyler',
+        'phone': '425 971 4405',
+    },
+
+    {
+        'name': 'Michael',
+        'phone': '206 501 5201',
+    },
+]
+
+if User.query.count() < 3:
+    for user_data in users_data:
+        user = User(**user_data)
+        user.setPassword('test')
+        db_session.add(user)
+        db_session.commit()
+
+        job.addWorker(user)
+        db_session.commit()
+        
+print job.getWorkers()
+
 
