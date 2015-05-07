@@ -46,13 +46,6 @@ def kitchenBot():
     else:
         return 'No kitchen duty today!'
 
-@app.route('/test')
-def viewObjects():
-    text = ''
-    for job in Job.query.all():
-        text += str(job) + '\n'
-    return text
-    
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     params = {'login_active': 'active'}
