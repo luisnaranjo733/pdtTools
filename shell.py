@@ -17,18 +17,18 @@ if __name__ == '__main__':
 
     if flag == '-c':
         luis = User(name='Luis', phone='206-478-4652')
-        tyler = User(name='Tyler', phone='4259714405')
+        tyler = User(name='Tyler', phone='4251111111')
         michael = User(name='Michael', phone='206 520 1234')
 
         db_session.add(luis)
-        db_session.add(tyler)
+        #db_session.add(tyler)
         db_session.add(michael)
         db_session.flush()
 
         job = Job()
         job.date = date(2015, 5, 6)
         job.addWorker(luis)
-        job.addWorker(tyler)
+        job.addWorker(michael)
         
         db_session.add(job)
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     elif flag == '-l':
         print('Users:')
         for user in User.query.all():
-            print('\t%r' % user)
+            print('\t%r (%s)' % (user, user.phone))
         print('')
 
         print('Jobs:')

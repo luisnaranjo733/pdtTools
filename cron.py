@@ -3,15 +3,17 @@ from datetime import date
 
 from pdtTools.database import init_db, db_session
 from pdtTools.models import User, Job
+from pdtTools.sms import sms
 
 '''
 This script should be run by a cron job every morning.
 It will text the people who have kitchen duty that day and remind them to do their job.
 If they reply, the flask server will handle the group message functionality.'''
 
-def text(phone, message):
-    print('Sending message to %s' % phone)
-    print('"%s"' % message)
+
+
+
+
 
 def remind(worker, job):
     '''Send worker a personalized reminder of kitchen duty.'''
@@ -21,12 +23,16 @@ def remind(worker, job):
             continue
         body += '\t* %s' % coworker.name
     body += '\nRespond to this message to initiate a group conversation.'
-    text(worker.phone, body)
+    sms(worker.phone, body)
         
+
 
 if __name__ == '__main__':
     job_today = Job.query.filter(Job.date == date.today()).first()
+    job_today = None
     if job_today:
         for worker in job_today.getWorkers():
             remind(worker, job_today)
             print('')
+
+    
