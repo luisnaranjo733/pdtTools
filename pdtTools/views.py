@@ -21,8 +21,7 @@ def relay_message(worker, coworkers, message):
         if coworker == worker:
             continue
         
-        number = pn.format_number(coworker.phone, pn.PhoneNumberFormat.INTERNATIONAL)
-        sms(number, '%s: %s' % (worker.name, message))
+        sms(coworker.phone, '%s: %s' % (worker.name, message))
 
 @app.route('/kitchen_bot', methods=['POST'])
 def kitchenBot():
