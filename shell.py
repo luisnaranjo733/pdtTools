@@ -1,3 +1,4 @@
+from sys import argv
 from datetime import date
 
 from pdtTools.database import init_db, db_session
@@ -5,41 +6,35 @@ from pdtTools.models import User, Job
 
 init_db()
 
-job = Job.query.filter(Job.id == 1).first()
+def create_users():
+    luis = User(name='Luis', phone='206-478-4652')
+    tyler = User(name='Tyler', phone='4259714405')
+    michael = User(name='Michael', phone='206 520 1234')
 
-if not job:
+    db_session.add(luis)
+    db_session.add(tyler)
+    db_session.add(michael)
+    db_session.commit()
+    return luis, tyler, michael
+
+
+if __name__ == '__main__':
+    luis, tyler, michael = create_users()
+
+    print 'Users: %r' % User.query.all()
+
     job = Job()
     job.date = date.today()
+    job.addWorker(luis)
+    job.addWorker(tyler)
+    
     db_session.add(job)
+    db_session.flush()
+
+    print 'Workers: %r' % job.getWorkers()
+
     db_session.commit()
-
-users_data = [
-    {
-        'name': 'Luis',
-        'phone': '206 478 4652',
-    },
-
-    {
-        'name': 'Tyler',
-        'phone': '425 971 4405',
-    },
-
-    {
-        'name': 'Michael',
-        'phone': '206 501 5201',
-    },
-]
-
-if User.query.count() < 3:
-    for user_data in users_data:
-        user = User(**user_data)
-        user.setPassword('test')
-        db_session.add(user)
-        db_session.commit()
-
-        job.addWorker(user)
-        db_session.commit()
-        
-print job.getWorkers()
-
-
+else:
+    job = Job.query.filter(Job.id == 1).first()
+    michael = User.query.filter(User.name == 'Michael').first()
+    #luis, tyler, michael = create_users()

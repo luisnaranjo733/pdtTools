@@ -67,20 +67,9 @@ class Job(Base):
     date = Column(Date)
     workers = Column(Json(128))
 
-    def getWorkers(self):
-        if self.workers:
-            workers = []
-            for worker_id in self.workers:
-                worker = User.query.filter(User.id == worker_id).first()
-                if worker:
-                    workers.append(worker)
-            return workers
+    def __init__(self):
+        self.workers = []
 
-
-    def addWorker(self, worker):
-        if not self.workers:
-            self.workers = []
-        self.workers.append(worker.id)
 
 
 
