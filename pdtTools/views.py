@@ -44,6 +44,13 @@ def kitchenBot():
         return 'Phone not found or worker not on duty today'
     else:
         return 'No kitchen duty today!'
+
+@app.route('/test')
+def viewObjects():
+    text = ''
+    for job in Job.query.all():
+        text += repr(job) + '\n'
+    return text
     
 @app.route('/login', methods=['POST', 'GET'])
 def login():
