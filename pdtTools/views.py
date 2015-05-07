@@ -2,6 +2,7 @@ from datetime import date
 
 import flask
 import phonenumbers as pn
+import twilio.twiml
 
 from pdtTools import app
 from pdtTools.models import User, Job
@@ -25,12 +26,12 @@ def relay_message(worker, coworkers, message):
 
 @app.route('/kitchen_bot', methods=['POST'])
 def kitchenBot():
-    phone = flask.request.form['phone']
+    phone = flask.request.form['From']
     try:
         phone = pn.parse(phone, 'US')
     except pn.phonenumberutil.NumberParseException:
         flask.abort(400)
-    message = flask.request.form['message']
+    message = flask.request.form['Body']
 
     # today's job if it exists
     today = Job.query.filter(Job.date == date.today()).first()

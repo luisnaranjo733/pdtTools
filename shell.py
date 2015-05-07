@@ -17,18 +17,18 @@ if __name__ == '__main__':
 
     if flag == '-c':
         luis = User(name='Luis', phone='206-478-4652')
-        tyler = User(name='Tyler', phone='206-478-4653')
+        dan = User(name='Dan', phone='425 239 5949')
         michael = User(name='Michael', phone='206 520 12341')
 
         db_session.add(luis)
-        db_session.add(tyler)
+        db_session.add(dan)
         #db_session.add(michael)
         db_session.flush()
 
         job = Job()
         job.date = date(2015, 5, 7)
         job.addWorker(luis)
-        job.addWorker(tyler)
+        job.addWorker(dan)
         
         db_session.add(job)
 
