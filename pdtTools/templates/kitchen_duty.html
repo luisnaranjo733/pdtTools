@@ -2,7 +2,6 @@
 
 {% block head %}
 <link href="{{ url_for('static', filename='datepicker/css/datepicker.css') }}" rel="stylesheet">
-<link href="{{ url_for('static', filename='typeahead/typeahead.css') }}" rel="stylesheet">
 {% endblock %}
                   
 {% block body %}
@@ -38,10 +37,12 @@
 
           <br><br>
 
-          <p style="display: inline; padding-right: 5px;">Workers: </p>
-          <span id="demo">
-            <input class="typeahead" type="text" placeholder="Workers" name="name">
-          </span>
+          <p>Workers: </p>
+          <select name="workers" multiple>
+            {% for worker in workers %}
+            <option value="{{ worker.id }}">{{ worker.name }}</option>
+            {% endfor %}
+          </select>
 
           <br><br>
           <input type="submit">
@@ -65,44 +66,4 @@ $(function(){
 });
 </script>
 
-<script src="{{ url_for('static', filename='typeahead/typeahead.bundle.js') }}"></script>
-<script>
-var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
- 
-    // an array that will be populated with substring matches
-    matches = [];
- 
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
- 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        matches.push(str);
-      }
-    });
- 
-    cb(matches);
-  };
-};
-
-var users = [
-    {% for user in users %}
-    '{{ user.name }}',
-    {% endfor %}
-];
- 
-$('#demo .typeahead').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'states',
-  source: substringMatcher(users)
-});
-</script>
 {% endblock js %}

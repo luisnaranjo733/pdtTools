@@ -17,18 +17,18 @@ def home():
 @app.route('/kitchen_duty')
 def kitchenDuty():
     params = {
-        'jobs': Job.query.filter(Job.date > date.today()).all(),
-        'users': User.query.all(),
+        'jobs': Job.query.filter(Job.date >= date.today()).all(),
+        'workers': User.query.all(),
         'today': date.today().strftime('%m-%d-%Y')
     }
     return flask.render_template('kitchen_duty.html', **params)
 
 @app.route('/kitchen/addJob', methods=['POST'])
-def addJob():
+def addJob(): 
     job_date = flask.request.form.get('date')
-    name = flask.request.form.get('name')
+    worker_ids = flask.request.form.getlist('workers')
     
-    if job_date:
+    if job_date:  # if date passed in, convert to date object
         month, day, year = job_date.split('-')
         month = int(month)
         day = int(day)
@@ -37,14 +37,16 @@ def addJob():
 
     job = Job()
     job.date = job_date
-    
-    worker = User.query.filter(User.name == name).first()
-    if worker:
-        job.addWorker(worker)
+
+    if worker_ids:  # if workers passed in, convert list of str pk's to list of ints
+        worker_ids = [int(worker_id) for worker_id in worker_ids]
+        for worker_id in worker_ids:
+            worker = User.query.filter(User.id == worker_id).first()
+            job.addWorker(worker)
 
     db_session.add(job)
     db_session.commit()
-    return 'Added %r with worker %r' % (job, worker)
+    return flask.redirect(flask.url_for('kitchenDuty'))
 
 def relay_message(worker, coworkers, message):
     '''Relay a message from worker to all coworkers except for worker.'''
