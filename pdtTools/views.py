@@ -34,7 +34,6 @@ def kitchenBot():
 
     # today's job if it exists
     today = Job.query.filter(Job.date == date.today()).first()
-    return str(Job.query.all())
     if today:  # today could be none
         todays_workers = today.getWorkers()
         for worker in User.query.all():
