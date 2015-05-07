@@ -15,9 +15,9 @@ def home():
 @app.route('/kitchen_duty')
 def kitchenDuty():
     params = {
-        'jobs': Job.query.all()
+        'jobs': Job.query.filter(Job.date > date.today()).all(),
     }
-    return flask.render_template('kitchen_duty.html')
+    return flask.render_template('kitchen_duty.html', **params)
 
 def relay_message(worker, coworkers, message):
     '''Relay a message from worker to all coworkers except for worker.'''

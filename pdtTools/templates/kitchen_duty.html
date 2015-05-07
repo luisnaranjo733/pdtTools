@@ -12,8 +12,17 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="view_jobs">
-        {% for job in jobs %}
-        {% endfor %}
+      <br>
+      <ul>
+      {% for job in jobs %}
+        <li>{{ job.date }}</li>
+        <ul>
+          {% for worker in job.getWorkers() %}
+          <li>{{ worker.name }}</li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+      </ul>
     </div>
     <div role="tabpanel" class="tab-pane" id="add_jobs"></div>
   </div>

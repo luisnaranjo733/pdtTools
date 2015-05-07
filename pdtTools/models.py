@@ -57,6 +57,9 @@ class Job(Base):
     date = Column(Date)
     workers = Column(String(128))
 
+    def __repr__(self):
+        return '<Job %r>' % self.date
+
     def addWorker(self, worker):
         if self.workers:
             workers = json.loads(self.workers)  # load saved array of ints
