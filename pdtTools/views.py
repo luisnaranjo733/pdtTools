@@ -49,7 +49,7 @@ def kitchenBot():
 def viewObjects():
     text = ''
     for job in Job.query.all():
-        text += repr(job) + '\n'
+        text += str(job) + '\n'
     return text
     
 @app.route('/login', methods=['POST', 'GET'])
