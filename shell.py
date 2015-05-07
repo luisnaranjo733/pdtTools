@@ -19,16 +19,19 @@ if __name__ == '__main__':
         luis = User(name='Luis', phone='206-478-4652')
         dan = User(name='Dan', phone='425 239 5949')
         michael = User(name='Michael', phone='206 520 12341')
+        ep = User(name='Eric Page', phone='312 508 9500')
+        justin = User(name='Justin Carpenter', phone='503 706 7882')
 
         db_session.add(luis)
-        db_session.add(dan)
-        #db_session.add(michael)
+        db_session.add(ep)
+        db_session.add(justin)
         db_session.flush()
 
         job = Job()
         job.date = date(2015, 5, 7)
         job.addWorker(luis)
-        job.addWorker(dan)
+        job.addWorker(ep)
+        job.addWorker(justin)
         
         db_session.add(job)
 
