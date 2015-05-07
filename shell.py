@@ -26,7 +26,7 @@ if __name__ == '__main__':
         db_session.flush()
 
         job = Job()
-        job.date = date(2015, 5, 6)
+        job.date = date(2015, 5, 7)
         job.addWorker(luis)
         job.addWorker(tyler)
         
