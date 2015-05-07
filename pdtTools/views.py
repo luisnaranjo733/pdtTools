@@ -19,6 +19,7 @@ def kitchenDuty():
     params = {
         'jobs': Job.query.filter(Job.date > date.today()).all(),
         'users': User.query.all(),
+        'today': date.today().strftime('%m-%d-%Y')
     }
     return flask.render_template('kitchen_duty.html', **params)
 
