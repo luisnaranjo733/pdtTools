@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='datepicker/css/datepicker.css') }}" rel="stylesheet">
+{% endblock %}
                   
 {% block body %}
 <div role="tabpanel">
@@ -24,8 +28,35 @@
       {% endfor %}
       </ul>
     </div>
-    <div role="tabpanel" class="tab-pane" id="add_jobs"></div>
+    <div role="tabpanel" class="tab-pane" id="add_jobs">
+        <br>
+
+        <form>
+          <p style="display: inline; padding-right: 28px;">Date: </p>
+          <input type="text" class="span2" value="05-7-2015" id="dp1" >
+
+          <br><br>
+
+          <p style="display: inline; padding-right: 5px;">Workers: </p>
+          <input type="text">
+
+        </form>
+
+    </div>
   </div>
 
 </div>
 {% endblock body %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script>
+$(function(){
+    $('#dp1').datepicker({
+        format: 'mm-dd-yyyy'
+    });
+		
+});
+	</script>
+
+{% endblock js %}
