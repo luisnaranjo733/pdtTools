@@ -48,6 +48,17 @@ def addJob():
     db_session.commit()
     return flask.redirect(flask.url_for('kitchenDuty'))
 
+@app.route('/kitchen/delJob', methods=['POST'])
+def delJob(): 
+    job_ids = flask.request.form.getlist('jobs')
+    if job_ids:
+        for job_id in job_ids:
+            job_id = int(job_id)
+            job = Job.query.filter(Job.id == job_id).first()
+            db_session.delete(job)
+    db_session.commit()
+    return flask.redirect(flask.url_for('kitchenDuty'))
+
 def relay_message(worker, coworkers, message):
     '''Relay a message from worker to all coworkers except for worker.'''
     for coworker in coworkers:

@@ -11,12 +11,15 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#view_jobs" aria-controls="view_jobs" role="tab" data-toggle="tab">View Kitchen Duty Jobs</a></li>
     <li role="presentation"><a href="#add_jobs" aria-controls="add_jobs" role="tab" data-toggle="tab">Add Kitchen Duty Job</a></li>
+    <li role="presentation"><a href="#del_jobs" aria-controls="del_jobs" role="tab" data-toggle="tab">Delete Kitchen Duty Job</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="view_jobs">
       <br>
+
+      {% if jobs %}
       <ul>
       {% for job in jobs %}
         <li>{{ job.date }}</li>
@@ -27,6 +30,12 @@
         </ul>
       {% endfor %}
       </ul>
+
+      {% else %}
+      <p>No jobs currently in the database</p>
+      {% endif %}
+
+
     </div>
     <div role="tabpanel" class="tab-pane" id="add_jobs">
         <br>
@@ -50,6 +59,28 @@
         </form>
 
     </div>
+
+    <div role="tabpanel" class="tab-pane" id="del_jobs">
+      <br>
+
+        {% if jobs %}
+        <form action="{{ url_for('delJob') }}" method="POST">
+          
+          <select name="jobs" size=10 style=' width: 30%' multiple>
+            {% for job in jobs %}
+            <option value="{{ job.id }}">{{ job.date }}</option>
+            {% endfor %}
+          </select>
+          <br><br>
+          <input type="submit">
+
+        </form>
+        {% else %}
+        <p>No jobs currently in the database</p>
+        {% endif %}
+
+    </div>
+
   </div>
 
 </div>
