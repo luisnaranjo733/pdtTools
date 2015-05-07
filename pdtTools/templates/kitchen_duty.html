@@ -1,11 +1,22 @@
 {% extends "base.html" %}
                   
 {% block body %}
+<div role="tabpanel">
 
-<form action="{{ url_for('kitchenBot') }}" method="post">
-    <input type="text" name="From">
-    <input type="text" name="Body">
-    <button class="btn btn-lg btn-default" type="submit">Sign in</button>
-</form>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#view_jobs" aria-controls="view_jobs" role="tab" data-toggle="tab">View Kitchen Duty Jobs</a></li>
+    <li role="presentation"><a href="#add_jobs" aria-controls="add_jobs" role="tab" data-toggle="tab">Add Kitchen Duty Job</a></li>
+  </ul>
 
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="view_jobs">
+        {% for job in jobs %}
+        {% endfor %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="add_jobs"></div>
+  </div>
+
+</div>
 {% endblock body %}

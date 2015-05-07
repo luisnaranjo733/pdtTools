@@ -67,11 +67,14 @@ class Job(Base):
         self.workers = json.dumps(workers)  # update workers json field
 
     def getWorkers(self):
-        worker_ids = json.loads(self.workers)  # load saved array of ints
-        workers = []  # array of User objects
-        for worker_id in worker_ids:
-            worker = User.query.filter(User.id == worker_id).first()
-            if worker:  # since id does not necessarily exist in db
-                workers.append(worker)
+        if self.workers:
+            worker_ids = json.loads(self.workers)  # load saved array of ints
+            workers = []  # array of User objects
+            for worker_id in worker_ids:
+                worker = User.query.filter(User.id == worker_id).first()
+                if worker:  # since id does not necessarily exist in db
+                    workers.append(worker)
 
-        return workers
+            return workers
+        else:
+            return []

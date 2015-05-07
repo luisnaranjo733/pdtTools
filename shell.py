@@ -21,6 +21,7 @@ def add_current_chapter():
             #print('Added %s' % name)
         db_session.commit()
 
+
 if __name__ == '__main__':
     if len(argv) == 1:
         print('Create is -c')
@@ -32,6 +33,22 @@ if __name__ == '__main__':
 
     if flag == '-c':
         add_current_chapter()
+
+        past_job = Job()
+        past_job.date = date(2015, 5, 5)
+    
+        future_job = Job()
+        future_job.date = date(2015, 5, 20)
+
+        today_job = Job()
+        today_job.date = date.today()
+
+        db_session.add(past_job)
+        db_session.add(future_job)
+        db_session.add(today_job)
+    
+        db_session.commit()
+
     elif flag == '-l':
         print('Users:')
         for user in User.query.all():
