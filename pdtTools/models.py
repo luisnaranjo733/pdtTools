@@ -50,26 +50,28 @@ class User(Base):
         return check_password_hash(self.password_hash, password)
         
 
-class Json(TypeDecorator):
-
-    impl = String
-
-    def process_bind_param(self, value, dialect):
-        return json.dumps(value)
-
-    def process_result_value(self, value, dialect):
-        return json.loads(value)
-
 
 class Job(Base):
     __tablename__ = 'jobs'
     id = Column(Integer, primary_key=True)
     date = Column(Date)
-    workers = Column(Json(128))
+    workers = Column(String(128))
 
-    def __init__(self):
-        self.workers = []
+    def addWorker(self, worker):
+        if self.workers:
+            workers = json.loads(self.workers)  # load saved array of ints
+            workers.append(worker.id)  # add worker id
+        else:
+            workers = [worker.id, ]  # initialize array and add worker id
+        
+        self.workers = json.dumps(workers)  # update workers json field
 
+    def getWorkers(self):
+        worker_ids = json.loads(self.workers)  # load saved array of ints
+        workers = []  # array of User objects
+        for worker_id in worker_ids:
+            worker = User.query.filter(User.id == worker_id).first()
+            if worker:  # since id does not necessarily exist in db
+                workers.append(worker)
 
-
-
+        return workers
