@@ -7,7 +7,6 @@ from pdtTools.models import User, Job
 init_db()
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     if len(argv) == 1:
         print('Create is -c')
         print('List is -c')
@@ -32,33 +31,6 @@ if __name__ == '__main__':
         job.addWorker(michael)
         
         db_session.add(job)
-=======
-    luis = User(name='Luis', phone='206-478-4652')
-    tyler = User(name='Tyler', phone='4259714405')
-    michael = User(name='Michael', phone='206 520 1234')
-
-    db_session.add(luis)
-    db_session.add(tyler)
-    db_session.add(michael)
-    db_session.flush()
-
-    print 'Users: %r' % User.query.all()
-
-    job = Job()
-    job.date = date.today()
-    job.addWorker(luis)
-    job.addWorker(tyler)
-    
-    db_session.add(job)
-    db_session.flush()
-
-    print 'Workers: %r' % job.getWorkers()
-
-    db_session.commit()
-else:
-    job = Job.query.filter(Job.id == 1).first()
-    michael = User.query.filter(User.name == 'Michael').first()
->>>>>>> b01343d615fe92fdf1a79fbc6e2766e5ece84d95
 
         db_session.commit()
     elif flag == '-l':
