@@ -21,7 +21,7 @@
 
       {% if jobs %}
       <ul>
-      {% for job in jobs %}
+      {% for job in jobs | sort(attribute='date') %}
         <li>{{ job.date }}</li>
         <ul>
           {% for worker in job.getWorkers() %}
@@ -47,8 +47,8 @@
           <br><br>
 
           <p>Workers: </p>
-          <select name="workers" multiple>
-            {% for worker in workers %}
+          <select name="workers" multiple size=30>
+            {% for worker in workers | sort(attribute='name') %}
             <option value="{{ worker.id }}">{{ worker.name }}</option>
             {% endfor %}
           </select>
@@ -67,7 +67,7 @@
         <form action="{{ url_for('delJob') }}" method="POST">
           
           <select name="jobs" size=10 style=' width: 30%' multiple>
-            {% for job in jobs %}
+            {% for job in jobs | sort(attribute='date') %}
             <option value="{{ job.id }}">{{ job.date }}</option>
             {% endfor %}
           </select>
