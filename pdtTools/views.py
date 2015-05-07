@@ -7,6 +7,8 @@ import twilio.twiml
 from pdtTools import app
 from pdtTools.models import User, Job
 from pdtTools.sms import sms
+from pdtTools.database import db_session
+
 
 @app.route('/')
 def home():
@@ -16,8 +18,32 @@ def home():
 def kitchenDuty():
     params = {
         'jobs': Job.query.filter(Job.date > date.today()).all(),
+        'users': User.query.all(),
     }
     return flask.render_template('kitchen_duty.html', **params)
+
+@app.route('/kitchen/addJob', methods=['POST'])
+def addJob():
+    job_date = flask.request.form.get('date')
+    name = flask.request.form.get('name')
+    
+    if job_date:
+        month, day, year = job_date.split('-')
+        month = int(month)
+        day = int(day)
+        year = int(year)
+        job_date = date(year, month, day)
+
+    job = Job()
+    job.date = job_date
+    
+    worker = User.query.filter(User.name == name).first()
+    if worker:
+        job.addWorker(worker)
+
+    db_session.add(job)
+    db_session.commit()
+    return 'Added %r with worker %r' % (job, worker)
 
 def relay_message(worker, coworkers, message):
     '''Relay a message from worker to all coworkers except for worker.'''
