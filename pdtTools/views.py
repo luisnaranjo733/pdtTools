@@ -25,25 +25,10 @@ def relay_message(worker, coworkers, message):
 
 @app.route('/kitchen_bot', methods=['POST'])
 def kitchenBot():
-    phone = flask.request.form['phone']
-    try:
-        phone = pn.parse(phone, 'US')
-    except pn.phonenumberutil.NumberParseException:
-        flask.abort(400)
-    message = flask.request.form['message']
-
-    # today's job if it exists
-    today = Job.query.filter(Job.date == date.today()).first()
-    if today:  # today could be none
-        todays_workers = today.getWorkers()
-        for worker in User.query.all():
-            if worker.phone == phone and worker in todays_workers:
-                relay_message(worker, todays_workers, message)
-                return worker.name
-
-        return 'Phone not found or worker not on duty today'
+    if Job.query.filter(Job.date == date.today()).first():
+        return '<p>There is kitchen duty today</p>'
     else:
-        return 'No kitchen duty today!'
+        return '<p>No kitchen duty today!</p>'
 
 @app.route('/test')
 def viewObjects():
