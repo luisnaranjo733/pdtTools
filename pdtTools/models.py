@@ -1,9 +1,8 @@
-import json
-
-import phonenumbers as pn
 from sqlalchemy import Column
 from sqlalchemy.types import Integer, String, Boolean, Date, TypeDecorator
 from werkzeug import generate_password_hash, check_password_hash
+import phonenumbers as pn
+from sqlalchemy_utils import JSONType
 
 from pdtTools.database import Base
 
@@ -50,11 +49,16 @@ class User(Base):
         return check_password_hash(self.password_hash, password)
         
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b01343d615fe92fdf1a79fbc6e2766e5ece84d95
 
 class Job(Base):
     __tablename__ = 'jobs'
     id = Column(Integer, primary_key=True)
     date = Column(Date)
+<<<<<<< HEAD
     workers = Column(String(128))
 
     def addWorker(self, worker):
@@ -65,6 +69,30 @@ class Job(Base):
             workers = [worker.id, ]  # initialize array and add worker id
         
         self.workers = json.dumps(workers)  # update workers json field
+=======
+    workers = Column(JSONType)
+
+    def __repr__(self):
+        return '<Job %r>' % self.date
+
+    def getWorkers(self):
+        if self.workers:
+            workers = []
+            for worker_id in self.workers:
+                worker = User.query.filter(User.id == worker_id).first()
+                if worker:
+                    workers.append(worker)
+            return workers
+
+
+    def addWorker(self, worker):
+        if not self.workers:
+            self.workers = [worker.id,]
+        else:
+            self.workers.append(worker.id)
+
+
+>>>>>>> b01343d615fe92fdf1a79fbc6e2766e5ece84d95
 
     def getWorkers(self):
         worker_ids = json.loads(self.workers)  # load saved array of ints
