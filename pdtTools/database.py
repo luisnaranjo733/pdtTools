@@ -10,12 +10,7 @@ dist = platform.dist()[0]
 path = 'sqlite:///'
 
 if dist == 'centos':
-    temp = os.path.expanduser('~')
-    temp = os.path.join(temp, 'webapps')
-    temp = os.path.join(temp, 'phidelttools')
-    temp = os.path.join(temp, 'pdtTools')
-    temp = os.path.join(temp, 'test.db')
-    path += temp
+    path += '/home/jnaranj0/webapps/phidelttools/pdtTools/test.db'
 else:
     path += '/home/luis/Dropbox/pdtTools/test.db'
 engine = create_engine(path, convert_unicode=True)
