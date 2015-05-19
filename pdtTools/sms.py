@@ -9,9 +9,9 @@ account_sid = "AC704c52f848ac4a38e1c79c261fb5be1a"
 dist = platform.dist()[0]
 
 if dist == 'centos':
-    path += '/home/jnaranj0/webapps/phidelttools/pdtTools/pdtTools/token.txt'
+    path = '/home/jnaranj0/webapps/phidelttools/pdtTools/pdtTools/token.txt'
 else:
-    path += '~/Dropbox/pdtTools/pdtTools/token.txt'
+    path = '~/Dropbox/pdtTools/pdtTools/token.txt'
 
 
 
