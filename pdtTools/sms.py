@@ -1,10 +1,21 @@
+import platform
+
 from twilio.rest import TwilioRestClient
 import phonenumbers as pn
 
 # Find these values at https://twilio.com/user/account
 account_sid = "AC704c52f848ac4a38e1c79c261fb5be1a"
 
-with open('token.txt', 'r') as fh:
+dist = platform.dist()[0]
+
+if dist == 'centos':
+    path += '/home/jnaranj0/webapps/phidelttools/pdtTools/pdtTools/token.txt'
+else:
+    path += '~/Dropbox/pdtTools/pdtTools/token.txt'
+
+
+
+with open(path, 'r') as fh:
     auth_token = fh.read().strip()
     
 client = TwilioRestClient(account_sid, auth_token)
