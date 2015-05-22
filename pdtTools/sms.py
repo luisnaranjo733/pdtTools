@@ -1,3 +1,4 @@
+import os
 import platform
 
 from twilio.rest import TwilioRestClient
@@ -8,10 +9,12 @@ account_sid = "AC704c52f848ac4a38e1c79c261fb5be1a"
 
 dist = platform.dist()[0]
 
+home = os.path.expanduser('~')
+
 if dist == 'centos':
-    path = '/home/jnaranj0/webapps/phidelttools/pdtTools/pdtTools/token.txt'
+    path = os.path.join(home, 'webapps/phidelttools/pdtTools/pdtTools/token.txt')
 else:
-    path = '~/Dropbox/pdtTools/pdtTools/token.txt'
+    path = os.path.join(home, 'Dropbox/pdtTools/pdtTools/token.txt')
 
 
 
