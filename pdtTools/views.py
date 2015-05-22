@@ -6,7 +6,7 @@ import twilio.twiml
 
 from pdtTools import app
 from pdtTools.models import User, Job
-from pdtTools.sms import sms
+from pdtTools import helpers
 from pdtTools.database import db_session
 
 
@@ -59,13 +59,6 @@ def delJob():
     db_session.commit()
     return flask.redirect(flask.url_for('kitchenDuty'))
 
-def relay_message(worker, coworkers, message):
-    '''Relay a message from worker to all coworkers except for worker.'''
-    for coworker in coworkers:
-        if coworker == worker:
-            continue
-        
-        sms(coworker.phone, '%s: %s' % (worker.name, message))
 
 @app.route('/kitchen_bot', methods=['POST'])
 def kitchenBot():
@@ -82,7 +75,7 @@ def kitchenBot():
         todays_workers = today.getWorkers()
         for worker in User.query.all():
             if worker.phone == phone and worker in todays_workers:
-                relay_message(worker, todays_workers, message)
+                helpers.relay_message(worker, todays_workers, message)
                 return worker.name
 
         return 'Phone not found or worker not on duty today'
