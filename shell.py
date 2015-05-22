@@ -49,3 +49,5 @@ if __name__ == '__main__':
         User.query.delete()
         Job.query.delete()
         db_session.commit()
+
+

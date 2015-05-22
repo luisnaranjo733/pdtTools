@@ -13,11 +13,17 @@ class PhoneNumber(TypeDecorator):
     impl = String
 
     def process_bind_param(self, value, dialect):
-        number = pn.parse(value, 'US')
-        return pn.format_number(number, pn.PhoneNumberFormat.NATIONAL)
+        if value:
+            number = pn.parse(value, 'US')
+            return pn.format_number(number, pn.PhoneNumberFormat.NATIONAL)
+        else:
+            return ''
 
     def process_result_value(self, value, dialect):
-        return pn.parse(value, 'US')
+        if value:
+            pn.parse(value, 'US')
+        else:
+            return ''
 
 
 class User(Base):
@@ -37,6 +43,8 @@ class User(Base):
                 self.setPassword(kwargs[attr])  # store password as a hash
             else:
                 setattr(self, attr, kwargs[attr])  # normal attributes
+        if 'phone' not in kwargs:
+            self.phone = ''
 
     def __repr__(self):
         return '<User %r>' % (self.name)
