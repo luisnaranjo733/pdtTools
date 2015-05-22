@@ -1,8 +1,10 @@
 import os
 import platform
+from functools import wraps
 
 from twilio.rest import TwilioRestClient
 import phonenumbers as pn
+import flask
 
 
 # Twilio initialization
@@ -38,11 +40,21 @@ def sms(phone, message):
 # ==================================================================================
 
 def relay_message(worker, coworkers, message):
-    '''Relay a message from worker to all coworkers except for worker.'''
+    '''Relay a message from worker to all coworkers except for worker.
+
+    This code is used for mediating group chat over sms'''
     for coworker in coworkers:
-        if coworker == worker:
+        if coworker == worker: # don't want to message the person sending the message
             continue
         
         sms(coworker.phone, '%s: %s' % (worker.name, message))
 
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not flask.session['logged_in']:
+            return flask.redirect(flask.url_for('login', next=flask.request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 

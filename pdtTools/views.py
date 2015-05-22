@@ -7,6 +7,7 @@ import twilio.twiml
 from pdtTools import app
 from pdtTools.models import User, Job
 from pdtTools import helpers
+from pdtTools.helpers import login_required
 from pdtTools.database import db_session
 
 
@@ -15,6 +16,7 @@ def home():
     return flask.render_template('home.html')
     
 @app.route('/kitchen_duty')
+@login_required
 def kitchenDuty():
     params = {
         'jobs': Job.query.filter(Job.date >= date.today()).all(),
@@ -24,6 +26,7 @@ def kitchenDuty():
     return flask.render_template('kitchen_duty.html', **params)
 
 @app.route('/kitchen/addJob', methods=['POST'])
+@login_required
 def addJob(): 
     job_date = flask.request.form.get('date')
     worker_ids = flask.request.form.getlist('workers')
@@ -49,6 +52,7 @@ def addJob():
     return flask.redirect(flask.url_for('kitchenDuty'))
 
 @app.route('/kitchen/delJob', methods=['POST'])
+@login_required
 def delJob(): 
     job_ids = flask.request.form.getlist('jobs')
     if job_ids:
