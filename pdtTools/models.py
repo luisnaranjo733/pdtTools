@@ -13,15 +13,19 @@ class PhoneNumber(TypeDecorator):
     impl = String
 
     def process_bind_param(self, value, dialect):
-        if value:
+        '''Converts a wild phone number string into a conventional number string'''
+        if value is not None:
             number = pn.parse(value, 'US')
-            return pn.format_number(number, pn.PhoneNumberFormat.NATIONAL)
+            formatted_phone_number = pn.format_number(number, pn.PhoneNumberFormat.NATIONAL)
+            return formatted_phone_number
         else:
             return ''
 
     def process_result_value(self, value, dialect):
-        if value:
-            pn.parse(value, 'US')
+        '''Converts the expected conventional number string into a pn object'''
+        if value is not None:
+            number_object = pn.parse(value, 'US')
+            return number_object
         else:
             return ''
 
@@ -44,6 +48,7 @@ class User(Base):
             else:
                 setattr(self, attr, kwargs[attr])  # normal attributes
         if 'phone' not in kwargs:
+            print "Nullifying phone number"
             self.phone = ''
 
     def __repr__(self):
@@ -51,6 +56,9 @@ class User(Base):
     
     def setPassword(self, password):
         'Hash a given password and store it'
+        if isinstance(password, str):
+            password = unicode(password)
+        print repr(password), type(password)
         self.password_hash = generate_password_hash(password)
         
     def checkPassword(self, password):

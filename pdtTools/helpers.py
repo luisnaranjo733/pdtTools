@@ -20,7 +20,7 @@ home = os.path.expanduser('~')
 if dist == 'centos':
     path = os.path.join(home, 'webapps/phidelttools/pdtTools/token.txt')
 else:
-    path = os.path.join(home, 'Dropbox/pdtTools/token.txt')
+    path = os.path.join(home, 'projects/pdtTools/token.txt')
 
 with open(path, 'r') as fh:
     auth_token = fh.read().strip()
@@ -53,7 +53,9 @@ def relay_message(worker, coworkers, message):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if not flask.session['logged_in']:
+        print flask.session
+        if not flask.session.get('logged_in'):
+            print "USER NOT LOGGED IN"
             return flask.redirect(flask.url_for('login', next=flask.request.url))
         return f(*args, **kwargs)
     return decorated_function

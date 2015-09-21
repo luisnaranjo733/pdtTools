@@ -96,6 +96,7 @@ def login():
         params['email'] = email or ''
         
         user = User.query.filter(User.email == email).first()
+        print user
         if user: # if email exists in database
             if user.checkPassword(password):
                 flask.flash("Succesful authentication")
