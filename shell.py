@@ -13,10 +13,10 @@ def add_current_chapter():
         for line in reader:  # name, number, password (optional)
             params = {}
             if len(line) >= 2:
-                params['name'] = line[0]
+                params['name'] = line[0].strip()
                 params['phone'] = line[1].strip()
             if len(line) >= 3:
-                params['email'] = line[2]
+                params['email'] = line[2].strip()
             if len(line) >= 4:
                 params['password_hash'] = line[3].strip()
             if not params['phone']:

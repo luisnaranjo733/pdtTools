@@ -54,6 +54,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         print flask.session
+        print f
         if not flask.session.get('logged_in'):
             print "USER NOT LOGGED IN"
             return flask.redirect(flask.url_for('login', next=flask.request.url))
