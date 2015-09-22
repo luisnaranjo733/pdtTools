@@ -39,9 +39,11 @@ class User(Base):
 
     password_hash = Column(String(54))
     is_admin = Column(Boolean)
+    is_live_in = Column(Boolean)
 
     def __init__(self, **kwargs):
         self.is_admin = False  # can be overridden in kwargs
+        self.is_live_in = True # can be overridden in kwargs
         for attr in kwargs:
             if attr == 'password_hash':
                 self.setPassword(kwargs[attr])  # store password as a hash
@@ -58,7 +60,6 @@ class User(Base):
         'Hash a given password and store it'
         if isinstance(password, str):
             password = unicode(password)
-        print repr(password), type(password)
         self.password_hash = generate_password_hash(password)
         
     def checkPassword(self, password):
@@ -77,6 +78,9 @@ class Job(Base):
         return '<Job %r>' % self.date
 
     def addWorker(self, worker):
+        if not worker.is_live_in:
+            print "Warning, just added %s to job on %s" % (worker, job)
+
         if self.workers:
             workers = json.loads(self.workers)  # load saved array of ints
             workers.append(worker.id)  # add worker id
@@ -86,14 +90,12 @@ class Job(Base):
         self.workers = json.dumps(workers)  # update workers json field
 
     def getWorkers(self):
+        workers = []  # array of User objects
         if self.workers:
             worker_ids = json.loads(self.workers)  # load saved array of ints
-            workers = []  # array of User objects
             for worker_id in worker_ids:
                 worker = User.query.filter(User.id == worker_id).first()
                 if worker:  # since id does not necessarily exist in db
                     workers.append(worker)
 
-            return workers
-        else:
-            return []
+        return workers

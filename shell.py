@@ -27,7 +27,7 @@ def add_current_chapter():
             db_session.add(user)
             db_session.flush()
             #break
-            #print('Added %s' % name)
+            print('Added %s' % str(user))
         db_session.commit()
 
 
