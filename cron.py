@@ -5,7 +5,7 @@ from datetime import date
 
 from pdtTools.database import init_db, db_session
 from pdtTools.models import User, Job
-from pdtTools.sms import sms
+from pdtTools.helpers import sms
 
 
 def remind(worker, job):
@@ -25,4 +25,3 @@ if __name__ == '__main__':
     if job_today:
         for worker in job_today.getWorkers():
             remind(worker, job_today)
-            #print('')

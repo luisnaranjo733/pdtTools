@@ -35,6 +35,7 @@ def sms(phone, message):
     print('Sending message to %s' % phone)
     print('"%s"' % message)
     
+    return 
     return client.messages.create(to=phone, from_="+16198318787", body=message)
 
 # ==================================================================================
