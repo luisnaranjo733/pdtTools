@@ -11,13 +11,12 @@ class Role(models.Model):
         return '<Role: %s>' % self.name
 
 
-class UserStatus(models.Model):
-    userID = models.ForeignKey(User)
-    isAlumni = models.BooleanField(default=False)
-    points = models.IntegerField(default=0)
+class Room(models.Model):
+    capacity = models.IntegerField()
+    isInhabitable = models.BooleanField('Livable?', default=True)
 
     def __str__(self):
-        return '<UserStatus: %d>' % (self.userID.first_name)
+        return '<Room: %d>' % self.pk
 
 
 class Quarter(models.Model):
@@ -32,23 +31,22 @@ class Quarter(models.Model):
     year = models.IntegerField()
 
     def __str__(self):
-        return '<Season: %s %d>' % (self.season, self.year)
+        return '<Quarter: %s>' % self.handle()
+
+    def handle(self):
+        return '%s%d' % (self.season, self.year)
 
 
-class Quarter_UserStatus(models.Model):
+class User_Quarter(models.Model):
+    userID = models.ForeignKey(User)
     quarterID =  models.ForeignKey(Quarter)
-    userStatusID = models.ForeignKey(UserStatus)
+    roomID = models.ForeignKey(Room)
+
+    points = models.IntegerField('House points')
+    isAlumni = models.BooleanField(default=False)
 
     def __str__(self):
-        return '<Quarter_UserStatus: %d, %d>' % (self.quarterID.pk, self.userStatusID.pk)
-
-
-class Room(models.Model):
-    capacity = models.IntegerField()
-    isInhabitable = models.BooleanField('Livable?')
-
-    def __str__(self):
-        return '<Room: %d>' % self.pk
+        return '<User_Quarter: %s, %s, %d>' % (self.userID.username, self.quarterID.handle(), self.roomID.pk)
 
 
 class KitchenDuty(models.Model):
@@ -94,10 +92,9 @@ class Chore_Day(models.Model):
 
 app_models = [
     Role,
-    UserStatus,
-    Quarter,
-    Quarter_UserStatus,
     Room,
+    Quarter,
+    User_Quarter,
     KitchenDuty,
     User_KitchenDuty,
     Day,
