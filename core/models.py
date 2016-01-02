@@ -51,14 +51,6 @@ class Room(models.Model):
         return '<Room: %d>' % self.pk
 
 
-class Role(models.Model):
-    name = models.CharField(max_length=20)
-    description = models.CharField(max_length=255)
-
-    def __str__(self):
-        return '<Role: %s>' % self.name
-
-
 class KitchenDuty(models.Model):
     date = models.DateField()
 
@@ -100,4 +92,15 @@ class Chore_Day(models.Model):
         return '<Chore_Day: %d>' % (self.choreID.pk, self.dayID.pk)
 
 
-        
+app_models = [
+    Role,
+    UserStatus,
+    Quarter,
+    Quarter_UserStatus,
+    Room,
+    KitchenDuty,
+    User_KitchenDuty,
+    Day,
+    Chore,
+    Chore_Day
+]
