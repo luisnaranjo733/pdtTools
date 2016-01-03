@@ -1,5 +1,9 @@
-Frat House Manager
+Fraternity House Manager
 ==================
+
+Tired of finding ways to maintain your Fraternity chapter house?
+
+Create a point system to incentivise house maintenance with room selection priority.
 
 Kitchen Duty
 ------------
