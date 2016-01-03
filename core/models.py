@@ -51,6 +51,7 @@ class User_Quarter(models.Model):
 
 class KitchenDuty(models.Model):
     date = models.DateField()
+    quarterID =  models.ForeignKey(Quarter)
 
     def __str__(self):
         return '<KitchenDuty: %r' % self.date
@@ -68,13 +69,13 @@ class Day(models.Model):
     name = models.CharField(max_length=10)
 
     def __str__(self):
-        return '<Day: %s' % self.name
+        return '<Day: %s>' % self.name
 
 
 class Chore(models.Model):
-    checker = models.ForeignKey(User, null=True)
+    checker = models.ForeignKey(User, null=True, blank=True)
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
     description =  models.CharField(max_length=255)
     timeDue = models.TimeField()
 
