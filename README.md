@@ -4,7 +4,7 @@ Frat House Manager
 Kitchen Duty
 ------------
 
-* For the steward
+* **For the steward**
     * Award/Reject kitchen duty points
 * For everyone else
     * View your upcoming kitchen duty responsibilies
