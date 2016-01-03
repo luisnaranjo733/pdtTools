@@ -6,7 +6,7 @@ Kitchen Duty
 
 * **For the steward**
     * Award/Reject kitchen duty points
-* For everyone else
+* **For everyone else**
     * View your upcoming kitchen duty responsibilies
     * See who currently has kitchen duty today
     * Get automatic SMS reminders about upcoming kitchen duties
@@ -16,17 +16,17 @@ Kitchen Duty
 Chores
 ------
 
-* For the house manager
+* **For the house manager**
     * Assign chores
     * Credit or debit people's chore points
-* For everyone else
+* **For everyone else**
     * Submit community complaints about uncompleted chores
     * Audit your received chore points
 
 Rooms
 -----
 
-* For the house manager
+* **For the house manager*
     * Assign rooms
-* For everyone else
+* **For everyone else**
     * Automated room selection process with online queue and SMS integration
