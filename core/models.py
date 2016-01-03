@@ -52,17 +52,18 @@ class User_Quarter(models.Model):
 class KitchenDuty(models.Model):
     date = models.DateField()
     quarterID =  models.ForeignKey(Quarter)
+    workers = models.ManyToManyField(User)
 
     def __str__(self):
         return '<KitchenDuty: %r' % self.date
 
 
-class User_KitchenDuty(models.Model):
-    userID = models.ForeignKey(User)
-    kitchenDutyID = models.ForeignKey(KitchenDuty)
+# class User_KitchenDuty(models.Model):
+#     userID = models.ForeignKey(User)
+#     kitchenDutyID = models.ForeignKey(KitchenDuty)
 
-    def  __str__(self):
-        return '<User_KitchenDuty: %d, %d>' % (self.userID.pk, self.kitchenDutyID.pk)
+#     def  __str__(self):
+#         return '<User_KitchenDuty: %d, %d>' % (self.userID.pk, self.kitchenDutyID.pk)
 
 
 class Day(models.Model):
@@ -74,6 +75,7 @@ class Day(models.Model):
 
 class Chore(models.Model):
     checker = models.ForeignKey(User, null=True, blank=True)
+    daysDue = models.ManyToManyField(Day)
 
     name = models.CharField(max_length=100)
     description =  models.CharField(max_length=255)
@@ -83,12 +85,12 @@ class Chore(models.Model):
         return '<Chore: %s>' % self.name
 
 
-class Chore_Day(models.Model):
-    choreID = models.ForeignKey(Chore)
-    dayID = models.ForeignKey(Day)
+# class Chore_Day(models.Model):
+#     choreID = models.ForeignKey(Chore)
+#     dayID = models.ForeignKey(Day)
 
-    def __str__(self):
-        return '<Chore_Day: %d>' % (self.choreID.pk, self.dayID.pk)
+#     def __str__(self):
+#         return '<Chore_Day: %d>' % (self.choreID.pk, self.dayID.pk)
 
 
 app_models = [
@@ -97,8 +99,8 @@ app_models = [
     Quarter,
     User_Quarter,
     KitchenDuty,
-    User_KitchenDuty,
+    #User_KitchenDuty,
     Day,
     Chore,
-    Chore_Day
+    #Chore_Day
 ]
