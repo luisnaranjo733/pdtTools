@@ -26,7 +26,7 @@ Chores
 Rooms
 -----
 
-* **For the house manager*
+* **For the house manager**
     * Assign rooms
 * **For everyone else**
     * Automated room selection process with online queue and SMS integration
