@@ -34,3 +34,8 @@ Rooms
     * Assign rooms
 * **For everyone else**
     * Automated room selection process with online queue and SMS integration
+
+Other
+-----
+
+* Serve as a place to store house account info
