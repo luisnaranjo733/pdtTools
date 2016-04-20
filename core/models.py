@@ -25,6 +25,7 @@ class Quarter(models.Model):
     )
 
     season = models.CharField(max_length=10, choices=SEASONS)
+    year = models.IntegerField()
     startDate = models.DateField()
     endDate = models.DateField()
 
@@ -36,26 +37,34 @@ class Quarter(models.Model):
         return '%s %d' % (self.season, self.startDate.year) 
 
 
-class User_Quarter(models.Model):
+class Member_Quarter(models.Model):
     memberID = models.ForeignKey(Member)
     quarterID =  models.ForeignKey(Quarter)
 
-    points = models.IntegerField('House points', default=0, blank=True)
     isLiveIn = models.BooleanField(default=True)
-
+    points = models.IntegerField('House points', default=0, blank=True)
+    
     def __str__(self):
         return '%s, %s' % (self.memberID.userID.username, self.quarterID.getHandle())
 
 
 class Role(models.Model):
     name = models.CharField(max_length=50)
+    desc = models.CharField(max_length=255)
+    spots = models.IntegerField(default=1, blank=True)
 
     def __str__(self):
         return self.name
 
+class Quarter_Role(models.Model):
+    memberQuarterID = models.ForeignKey(Member_Quarter)
+    roleID = models.ForeignKey(Role)
+    
+    def __str__(self):
+        return "%s : %s" % (self.roleID, self.memberQuarterID)
 
-class User_Quarter_Role(models.Model):
-    userQuarterID = models.ForeignKey(User_Quarter)
+class Member_Quarter_Role(models.Model):
+    userQuarterID = models.ForeignKey(Member_Quarter)
     roleID = models.ForeignKey(Role)
     
     def __str__(self):
@@ -116,6 +125,6 @@ app_models = [
     Member,
     Role,
     Quarter,
-    User_Quarter,
-    User_Quarter_Role
+    Member_Quarter,
+    Member_Quarter_Role
 ]
