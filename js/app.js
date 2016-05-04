@@ -1,10 +1,12 @@
-var pdtApp = angular.module("PdtApp", ['ui.router', 'firebase']);
-pdtApp.controller("PdtCtrl", function($scope, $state, $firebaseObject) {
+
+var pdtApp = angular.module("PdtApp", ['ui.router']);
+
+pdtApp.controller("LogInCtrl", function($scope, $state) {
     var rootRef = new Firebase("https://pdttools.firebaseIO.com");
     $scope.groupPassword = $firebaseObject(rootRef.child("weakGroupPassword"));
     $scope.adminPassword = $firebaseObject(rootRef.child("weakAdminPassword"));
 
-    $scope.signIn = function(password) {
+    $scope.logIn = function(password) {
         if (password == $scope.groupPassword.$value) {
             console.log("Group password correct");
             $state.go('housePointView');
@@ -14,22 +16,26 @@ pdtApp.controller("PdtCtrl", function($scope, $state, $firebaseObject) {
             console.log("Auth failed");
         }
     };
-
 });
+
+
+pdtApp.controller("housePointsCtrl", [function($scope) {
+
+
+}]);
 
 pdtApp.config(function($stateProvider, $urlRouterProvider) {
+    //$urlRouterProvider.otherwise("/login");
+    $stateProvider.state('logIn', {
+        url: "/",
+        templateUrl: "partials/login.html",
+        controller: "LogInCtrl"
+    })
 
-    $stateProvider.state('signIn', {
-        url: "/signIn",
-        templateUrl: "partials/signIn.html"
-    });
 
-    $stateProvider.state('housePointView', {
-        url: "/housePointView",
+    $stateProvider.state('pointsView', {
+        url: "/points",
         templateUrl: "partials/points.html",
-        controller: function($scope) {
-            $scope.test="hello";
-        }
-    });
-
-});
+        controller: "housePointsCtrl"
+    })
+})
