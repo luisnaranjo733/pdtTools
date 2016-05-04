@@ -1,29 +1,35 @@
-var pdtApp = angular.module("PdtApp", ['ui.router']);
-pdtApp.controller("PdtCtrl", ["$state", function($scope, $state) {
-    // function to submit the form after all validation has occurred            
+var pdtApp = angular.module("PdtApp", ['ui.router', 'firebase']);
+pdtApp.controller("PdtCtrl", function($scope, $state, $firebaseObject) {
+    var rootRef = new Firebase("https://pdttools.firebaseIO.com");
+    $scope.groupPassword = $firebaseObject(rootRef.child("weakGroupPassword"));
+    $scope.adminPassword = $firebaseObject(rootRef.child("weakAdminPassword"));
+
     $scope.signIn = function(password) {
-        if (password == "drake1848") {
-            console.log("pawn");
-            //$state.go("main-ui");
-        } else if (password == "morrison1848") {
-            console.log("admin");
-            //$state.go("main-ui");
+        if (password == $scope.groupPassword.$value) {
+            console.log("Group password correct");
+            $state.go('housePointView');
+        } else if (password == $scope.adminPassword.$value) {
+            console.log("Admin password correct");
         } else {
-            console.log("unauthorized");
+            console.log("Auth failed");
         }
     };
-}]);
+
+});
 
 pdtApp.config(function($stateProvider, $urlRouterProvider) {
 
-    $stateProvider.state('home', {
-        url: "/",
-        templateUrl: "partials/home.html"
-    })
+    $stateProvider.state('signIn', {
+        url: "/signIn",
+        templateUrl: "partials/signIn.html"
+    });
 
+    $stateProvider.state('housePointView', {
+        url: "/housePointView",
+        templateUrl: "partials/points.html",
+        controller: function($scope) {
+            $scope.test="hello";
+        }
+    });
 
-    $stateProvider.state('main-ui', {
-        url: "/points",
-        templateUrl: "partials/points.html"
-    })
-})
+});
