@@ -1,28 +1,29 @@
-<!DOCTYPE html>
-<htm>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="PdtApp">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="img/page-icon.png">
-   
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Hello AngularJS - Hello World</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="bower_components\bootstrap\dist\css\bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-
-    <title>PDT Tools</title>
-
-</head>
-
-<body>
-
-
-<!-- load external libraries -->
-<script src="bower_components\jquery\dist\jquery.min.js"></script>
-<script src="bower_components/firebase/firebase.js"></script>
-<script src="bower_components\bootstrap\dist\js\bootstrap.js"></script>
-<!-- load our script -->
 <script src="js/app.js"></script>
 
-</body>
+</head>
+<body ng-controller="PdtCtrl">
+	
+	<div class="container">
 
-</html>
+		<h4>Hello {{ name }}! How are you doing today</h4>
+
+		<input type="text" class="form-control" name="firstname"
+							ng-model="name">
+	
+	</div>
+</body>
+</html>	
