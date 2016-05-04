@@ -1,4 +1,12 @@
-    var helloApp = angular.module("PdtApp", []);
-    helloApp.controller("PdtCtrl", function($scope) {
-        $scope.name = "Calvin Hobbes";
-    });
+var pdtApp = angular.module("PdtApp", ['ui.router']);
+pdtApp.controller("PdtCtrl", function($scope) {
+    
+});
+
+pdtApp.config(function($stateProvider, $urlRouterProvider) {
+
+    $stateProvider.state('home', {
+        url: "/",
+        templateUrl: "partials/home.html"
+    })
+})
