@@ -31,25 +31,25 @@ pdtApp.controller("housePointCtrl", function($scope, $rootScope) {
 
 pdtApp.factory('AuthService', function() {
     var authService = {};
-    authService.loggedIn = false;
 
     authService.logIn = function() {
         console.log("Logging in");
-        authService.loggedIn = true;
+        localStorage.setItem("pdtToolsAuth", "true");
     }
 
     authService.logOut = function() {
         console.log("Logging out");
-        authService.loggedIn = false;
+        localStorage.setItem("pdtToolsAuth", "false");
     }
 
     authService.isAuthenticated = function() {
-        if (authService.loggedIn) {
+        var authenticated = localStorage.getItem("pdtToolsAuth") == "true";
+        if (authenticated) {
             console.log("user IS logged in");
         } else {
             console.log("user IS NOT logged in");
         }
-        return authService.loggedIn;
+        return authenticated;
     }
 
     return authService;
@@ -67,7 +67,7 @@ pdtApp.config(function($stateProvider, $urlRouterProvider) {
 
 
     $stateProvider.state('housePointView', {
-        url: "/points",
+        url: "/",
         templateUrl: "partials/points.html",
         controller: 'housePointCtrl',
         authenticate: true
