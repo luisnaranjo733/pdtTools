@@ -20,11 +20,7 @@ pdtApp.controller("LogInCtrl", function($scope, $state, $firebaseObject, $rootSc
 });
 
 pdtApp.controller("housePointCtrl", function($scope, $rootScope) {
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options){
-        if (toState.name == "housePointView") {
-            console.log("House housePointView");
-        }
-    })
+    $scope.people = ["Luis", "Polsin"];
 
 });
 

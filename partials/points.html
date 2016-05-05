@@ -1,5 +1,12 @@
 
-
-<div class="blue-section">
-	<p>stuff</p>
+<div class="box" ng-repeat="person in people">
+	<div class="box-icon">
+		<img src="https://i1.sndcdn.com/artworks-000130890865-6wh0of-large.jpg">
+	</div>
+	<div class="box-text">
+		<h4>{{ person }}</h4>
+	</div>
+	<div class="box-likes">
+		<span>4 likes</span>
+	</div>
 </div>

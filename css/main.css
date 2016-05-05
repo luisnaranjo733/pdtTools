@@ -40,7 +40,7 @@ body {
 }
 
 
-.blue-section {
+.login-section {
     text-align: center;
     background-color: #1A4982;
     
@@ -53,6 +53,55 @@ body {
 h3 {
     color: white;
 }
+
+.box {
+    background-color: #BFBFBF;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    display: block;
+    margin-top: 30px;
+    position: relative;
+    height: 100px;
+    width: 100%;
+
+}
+
+.box-icon {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.box-text {
+    position: absolute;
+    left: 100px;
+    padding: 1em;
+    height: 100%;
+    width: calc(100% - 150px);
+}
+
+.box-text h4 {
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+        
+}
+
+.box-likes {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 100px;
+    width: 50px;
+    padding-right: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+
+
 
 
 /*
@@ -76,7 +125,7 @@ Large devices Desktops (≥1200px)
     }
 
 
-    .blue-section {
+    .login-section {
         text-align: center;
         background-color: #1A4982;
         
@@ -86,11 +135,11 @@ Large devices Desktops (≥1200px)
         padding-right: 1em;
     }
 
-    .blue-section p {
+    .login-section p {
         color: white;
     }
 
-    .blue-section img {
+    .login-section img {
         max-width: 100%;
         max-height: 100%;
     }
