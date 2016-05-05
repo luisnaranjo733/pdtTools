@@ -61,7 +61,7 @@ h3 {
     display: block;
     margin-top: 30px;
     position: relative;
-    height: 100px;
+    height: 80px;
     width: 100%;
 
 }
@@ -71,6 +71,9 @@ h3 {
     top: 0px;
     bottom: 0px;
     left: 0px;
+    border-style: solid;
+    height: 80px;
+    width: 80px;
 }
 
 .box-text {
