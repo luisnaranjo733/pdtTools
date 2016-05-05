@@ -66,7 +66,7 @@ h3 {
 
 }
 
-.box-icon {
+.box-sidebox {
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -76,7 +76,17 @@ h3 {
     width: 80px;
 }
 
-.box-text {
+.box-sidebox span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+
+}
+
+.box-title {
     position: absolute;
     left: 100px;
     padding: 1em;
@@ -84,27 +94,12 @@ h3 {
     width: calc(100% - 150px);
 }
 
-.box-text h4 {
+.box-title h4 {
     font-size: 16px;
     letter-spacing: 2px;
     text-transform: uppercase;
         
 }
-
-.box-likes {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    height: 100px;
-    width: 50px;
-    padding-right: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: center; /* align horizontal */
-    align-items: center; /* align vertical */
-
-
 
 
 /*
