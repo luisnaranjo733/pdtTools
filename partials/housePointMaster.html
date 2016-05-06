@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="box" ng-repeat="person in people" ui-sref="housePointWeeks">
+	<div class="box" ng-repeat="person in people" ui-sref="housePointWeeks({name: person.name})">
 		<div class="box-sidebox">
 			<span>{{ person.points }}</span>
 		</div>

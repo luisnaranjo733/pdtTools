@@ -32,8 +32,11 @@ pdtApp.controller("housePointMasterCtrl", function($scope, $rootScope) {
     ];
 });
 
-pdtApp.controller("housePointWeeksCtrl", function($scope) {
-
+pdtApp.controller("housePointWeeksCtrl", function($scope, $stateParams) {
+    // use this url parameter to query this person's records in the firebase and load their data onto scope
+    // using their name as the logical equivalent to their PK
+    // probably can find a better way to do this (maybe with firebase uuid)
+    $scope.name = $stateParams.name
 });
 
 
@@ -82,7 +85,7 @@ pdtApp.config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('housePointWeeks', {
-        url: "/weeks",
+        url: "/points/{name}",
         templateUrl: "partials/housePointWeeks.html",
         controller: "housePointWeeksCtrl",
         authenticate: true
