@@ -10,7 +10,7 @@ pdtApp.controller("LogInCtrl", function($scope, $state, $firebaseObject, $rootSc
         if (password == $scope.groupPassword.$value) {
             console.log("Group password correct");
             AuthService.logIn();
-            $state.go('housePointView');
+            $state.go('housePointMaster');
         } else if (password == $scope.adminPassword.$value) {
             console.log("Admin password correct");
         } else {
@@ -19,8 +19,20 @@ pdtApp.controller("LogInCtrl", function($scope, $state, $firebaseObject, $rootSc
     };
 });
 
-pdtApp.controller("housePointCtrl", function($scope, $rootScope) {
-    $scope.people = ["Luis", "Polsin"];
+pdtApp.controller("housePointMasterCtrl", function($scope, $rootScope) {
+    $scope.people = [
+        {
+            name: "Luis Naranjo",
+            points: 42,
+        },
+        {
+            name: "Nick Polsin",
+            points: 36
+        }
+    ];
+});
+
+pdtApp.controller("housePointWeeksCtrl", function($scope) {
 
 });
 
@@ -59,15 +71,23 @@ pdtApp.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: "partials/login.html",
         controller: "LogInCtrl",
         authenticate: false
-    })
+    });
 
 
-    $stateProvider.state('housePointView', {
+    $stateProvider.state('housePointMaster', {
         url: "/",
-        templateUrl: "partials/points.html",
-        controller: 'housePointCtrl',
+        templateUrl: "partials/housePointMaster.html",
+        controller: 'housePointMasterCtrl',
         authenticate: true
-    })
+    });
+
+    $stateProvider.state('housePointWeeks', {
+        url: "/weeks",
+        templateUrl: "partials/housePointWeeks.html",
+        controller: "housePointWeeksCtrl",
+        authenticate: true
+    });
+
     $urlRouterProvider.otherwise("logIn");
 })
 .run(function ($rootScope, $state, AuthService) {
