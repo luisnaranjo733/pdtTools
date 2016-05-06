@@ -54,16 +54,24 @@ h3 {
     color: white;
 }
 
+/* points.html styles begin here*/
+
+.container {
+    margin: 0 auto;
+}
+
 .box {
     background-color: #BFBFBF;
     border-radius: 3px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    display: block;
-    margin-top: 30px;
+    /*display: block;*/
+    margin-top: 10px;
+    margin-bottom: 30px;
     position: relative;
     height: 80px;
     width: 100%;
 
+    
 }
 
 .box-sidebox {
@@ -71,12 +79,19 @@ h3 {
     top: 0px;
     bottom: 0px;
     left: 0px;
-    border-style: solid;
     height: 80px;
     width: 80px;
+
+    border-right-style: solid;
+    border-right-width: 1px;
 }
 
 .box-sidebox span{
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
     position: absolute;
     top: 50%;
     left: 50%;
