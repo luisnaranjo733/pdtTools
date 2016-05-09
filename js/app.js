@@ -1,10 +1,11 @@
 
 var pdtApp = angular.module("PdtApp", ['ui.router', 'firebase']);
+var firebaseURL = "https://pdttools.firebaseIO.com";
 
 pdtApp.controller("LogInCtrl", function($scope, $state, $firebaseObject, $rootScope, AuthService) {
-    var rootRef = new Firebase("https://pdttools.firebaseIO.com");
-    $scope.groupPassword = $firebaseObject(rootRef.child("weakGroupPassword"));
-    $scope.adminPassword = $firebaseObject(rootRef.child("weakAdminPassword"));
+    var ref = new Firebase(firebaseURL);
+    $scope.groupPassword = $firebaseObject(ref.child("weakGroupPassword"));
+    $scope.adminPassword = $firebaseObject(ref.child("weakAdminPassword"));
 
     $scope.logIn = function(password) {
         if (password == $scope.groupPassword.$value) {
@@ -19,7 +20,11 @@ pdtApp.controller("LogInCtrl", function($scope, $state, $firebaseObject, $rootSc
     };
 });
 
-pdtApp.controller("housePointMasterCtrl", function($scope, $rootScope) {
+pdtApp.controller("housePointMasterCtrl", function($scope, $firebaseArray) {
+
+    var ref = new Firebase(firebaseURL + "/users");
+    $scope.data = new $firebaseArray(ref);
+
     $scope.people = [
         {
             name: "Luis Naranjo",
